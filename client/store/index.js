@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import allPosters from './posters'
+import singlePoster from './singlePoster'
 
-const reducer = combineReducers({ auth, allPosters })
+const reducer = combineReducers({ auth, allPosters, singlePoster })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
