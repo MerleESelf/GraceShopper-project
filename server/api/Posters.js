@@ -1,5 +1,5 @@
 // this should be merged with the allPosters API because they share the same /api/posters
-//
+
 
 const router = require('express').Router()
 const { models: { Poster }} = require('../db')
