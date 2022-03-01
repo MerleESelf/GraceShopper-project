@@ -10,6 +10,7 @@ router.get('/', async(req, res, next ) => {
     } catch (error) {
         next(error)
     }
+
 })
 router.get('/:id', async (req, res, next) => {
     try {
@@ -25,3 +26,4 @@ router.get('/:id', async (req, res, next) => {
       next(err);
     }
   });
+
