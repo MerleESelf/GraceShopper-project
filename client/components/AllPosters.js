@@ -5,33 +5,25 @@ import { Link } from "react-router-dom";
 
 
 class PosterCard extends React.Component { 
-    constructor(){
-        super();
-        this.handleClick = this.handleClick.bind(this)
-    }
-    
-    //handleClick(){}
 
     render() {
-      const Poster = this.props.poster;
+      const poster = this.props.poster;
   
       return (
-        <div>
+        <div className='poster'>
           <div>
+          <Link to={`/posters/${poster.id}`}>
             <img className="posterImage" src={poster.imageUrl} alt="image" />
+          </Link> 
           </div>
           <div className="posterInfo">
-            {/* link to single poster */}
-            {/* <Link to={`/posters/${poster.id}`}>
-              <p>Name: </p>
-            </Link> */}
             <p>{poster.name}</p>
             <p>{poster.creator}</p>
-            <p>{poster.price}</p>
+            <p>${poster.price}</p>
           </div>
           <form className="addToCart" onSubmit={(ev) => ev.preventDefault()}>
             <div>
-              <button type="button" onClick={this.handleClick}>
+              <button type="button">
                 Add to Cart
               </button>
             </div>
@@ -52,22 +44,16 @@ export class AllPosters extends React.Component {
       "NO POSTERS"
     ) : (
       <div>
-        <div>
-          <h2>THE POSTER SHOP</h2>
-          <h3>Fill your walls with some of most vibrant best-selling art</h3>
-        </div>
-        <div>
-            <h4>SHOP POSTER DEALS</h4>
           {this.props.state.map((poster) => {
             return <PosterCard key={poster.id} poster={poster} />;
           })}
-        </div>
       </div>
     );
   }
 }
 
 const mapState = (reduxState) => {
+  console.log("reduxState", reduxState)
   return {
     state: reduxState.allPosters,
   };
@@ -75,7 +61,7 @@ const mapState = (reduxState) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadRobots: () => dispatch(getAllPosters()),
+    loadPosters: () => dispatch(getAllPosters()),
   };
 };
 
