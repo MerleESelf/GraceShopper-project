@@ -4,21 +4,36 @@ const db = require('./db');
 
 const User = require('./models/User');
 const Poster = require('./models/Poster');
-const Cart = require('./models/Cart');
+const Order = require('./models/Order');
+const CartDetail = require('./models/CartDetail');
 
 //associations could go here!
 User.belongsToMany(Poster, { through: 'UserPoster' });
 Poster.belongsToMany(User, { through: 'UserPoster' });
-User.hasOne(Cart);
-Poster.belongsToMany(Cart, { through: 'CartPoster' });
-Cart.belongsToMany(Poster, { through: 'CartPoster' });
+User.hasOne(Order);
+Poster.belongsToMany(CartDetail, { through: 'PosterCartDetail' });
+CartDetail.belongsToMany(Poster, { through: 'PosterCartDetail' });
+Order.hasOne(CartDetail);
 
+
+// Order.beforeValidate(order=> {
+// 	if (!order.id) {
+// 	  throw new Error('');
+// 	}
+//   });
+
+// CartDetail.beforeValidate( order=> {
+// 	if (Poster.quantity < CartDetail.quantityTotal) {
+// 	  throw new Error('Not enough in stock');
+// 	}
+//   });
 
 module.exports = {
 	db,
 	models: {
 		User,
 		Poster,
-		Cart,
+		Order,
+		CartDetail
 	},
 };

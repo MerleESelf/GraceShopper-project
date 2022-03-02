@@ -2,7 +2,7 @@
 
 const {
 	db,
-	models: { User, Poster },
+	models: { User, Poster, Order, CartDetail },
 } = require('../server/db');
 
 /**
@@ -27,13 +27,27 @@ async function seed() {
 			description: "It's a cat, it's a moon, what more would you want",
 			price: 20.0,
 		}),
-    Poster.create({
+    	Poster.create({
 			name: 'groomingbysunlight',
 			creator: 'amber L',
 			description: "It's a cat, it's a sun, what more would you want",
 			price: 40.0,
 		}),
 	]);
+
+	// Creating Order
+	const orders = await Promise.all([
+		Order.create({moneyTotal: 200})
+	]);
+
+	// Creating CartDetail
+	const cartDetail = await Promise.all([
+		CartDetail.create({quantityTotal: 3})
+	]);
+
+	// Creating Associations
+
+
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);
 	return {
@@ -44,6 +58,12 @@ async function seed() {
 		posters: {
 			groomingbymoonlight: posters[0],
 		},
+		orders: {
+			200: orders[0],
+		},
+		cartDetail: {
+			3: cartDetail[0]
+		}
 	};
 }
 
