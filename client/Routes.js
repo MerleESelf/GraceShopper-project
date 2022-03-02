@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import AllPosters from './components/AllPosters';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
@@ -22,6 +23,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
+            <Route path="/posters" component={AllPosters} />
           </Switch>
         ) : (
           <Switch>
