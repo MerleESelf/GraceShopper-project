@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Cart = db.define('cart', {
+const Order = db.define('order', {
 // cart should have both user and poster info attached to it. 
 // when a user adds something to card, a new association is created 
 //lifecycle hook? for before or after update to have the quantities and prices update, OK theres a change coming up with our model
@@ -12,10 +12,10 @@ moneyTotal: {
     type: Sequelize.DECIMAL(10,2),
     default: 0
 },
-itemTotal: {
-    type: Sequelize.INTEGER,
-    default: 0
-},
+isComplete: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+}
 })
 
-module.exports = Cart;
+module.exports = Order;
