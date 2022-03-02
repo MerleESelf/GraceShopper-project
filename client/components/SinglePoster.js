@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSinglePoster } from '../store/singlePoster';
-// import './single.css';
 
 class SinglePoster extends React.Component {
 	constructor(props) {
