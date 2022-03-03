@@ -49,7 +49,12 @@ class CartItem extends React.Component {
 							<input type='number' value='2' min='1'></input>
 						</div>
 						<div className='product-removal'>
-							<button className='remove-product'>Remove</button>
+							<button
+								className='remove-product'
+								onClick={this.props.removeItem}
+							>
+								Remove
+							</button>
 						</div>
 						<div className='product-line-price'>25.98</div>
 					</div>
@@ -67,12 +72,17 @@ class CartItem extends React.Component {
 							<input type='number' value='2' min='1'></input>
 						</div>
 						<div className='product-removal'>
-							<button className='remove-product'>Remove</button>
+							<button
+								className='remove-product'
+								onClick={this.props.removeItem}
+							>
+								Remove
+							</button>
 						</div>
 						<div className='product-line-price'>25.98</div>
 					</div>
 
-					<div className='totals'>
+					{/* <div className='totals'>
 						<div className='totals-item'>
 							<label>Subtotal</label>
 							<div className='totals-value' id='cart-subtotal'>
@@ -99,7 +109,7 @@ class CartItem extends React.Component {
 						</div>
 					</div>
 
-					<button className='checkout'>Checkout</button>
+					<button className='checkout'>Checkout</button> */}
 				</div>
 			</div>
 		);
