@@ -7,7 +7,11 @@ import OrderConfirmation from './components/OrderConfirmation'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
+<<<<<<< HEAD
 import ThankyouPage from './components/ThankyouPage';
+=======
+import CartItem from './components/cart';
+>>>>>>> 4827dd9517d5e0ddf87b8677c541d6151bafce98
 
 /**
  * COMPONENT
@@ -27,6 +31,7 @@ class Routes extends Component {
 						<Route path='/home' component={Home} />
 						<Route exact path='/posters' component={AllPosters} />
 						<Route exact path='/posters/:id' component={SinglePoster} />
+						<Route exact path='/cart' component={CartItem} />
 						{/* <Redirect to="/home" /> */}
 						<Route path='/checkedOut' component={ThankyouPage}/>
 						<Route path='/orderconfirmation' component={OrderConfirmation}/>
