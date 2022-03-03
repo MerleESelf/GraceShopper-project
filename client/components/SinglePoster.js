@@ -13,6 +13,33 @@ class SinglePoster extends Component {
   }
   update() {
     this.props.updateSinglePoster(this.props.match.params.id);
+    if (!localStorage.getItem("cart")) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          {
+            posterId: this.props.match.params.id,
+            itemQuantity: 1,
+          },
+        ])
+      );
+    } else {
+      var existing = JSON.parse(localStorage.getItem("cart"));
+      var [updateQuant] = existing.filter(
+        (e) => e.posterId === this.props.match.params.id
+      );
+      //need to check if the posterId already exists, if it does just update quantit
+      if (updateQuant) {
+        updateQuant.itemQuantity++;
+        localStorage.setItem("cart", JSON.stringify(existing));
+      } else {
+        existing.push({
+          posterId: this.props.match.params.id,
+          itemQuantity: 1,
+        });
+        localStorage.setItem("cart", JSON.stringify(existing));
+      }
+    }
   }
 
   render() {
@@ -32,13 +59,6 @@ class SinglePoster extends Component {
               <span className="sale_price">
                 PRICE (cmon you know it's totally worth it for this SWEET poster
                 of a cat in a hat): {poster.price}
-              </span>
-              <span className="stars">
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star"></i>
-                <i className="fa fa-star-half"></i>
               </span>
               <div className="product_options">
                 <div className="select">
