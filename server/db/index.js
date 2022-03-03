@@ -8,6 +8,13 @@ const Order = require("./models/Order");
 const CartDetail = require("./models/CartDetail");
 
 //associations could go here!
+// User.belongsToMany(Poster, { through: "UserPoster" });
+// Poster.belongsToMany(User, { through: "UserPoster" });
+// User.hasMany(Order);
+// Order.belongsTo(User);
+// Poster.belongsToMany(CartDetail, { through: "PosterCartDetail" });
+// CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
+// Order.hasOne(CartDetail);
 User.belongsToMany(Poster, { through: "UserPoster" });
 Poster.belongsToMany(User, { through: "UserPoster" });
 User.hasMany(Order);
