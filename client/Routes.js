@@ -6,6 +6,7 @@ import SinglePoster from './components/SinglePoster';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
+import CartItem from './components/cart';
 
 /**
  * COMPONENT
@@ -25,6 +26,7 @@ class Routes extends Component {
 						<Route path='/home' component={Home} />
 						<Route exact path='/posters' component={AllPosters} />
 						<Route exact path='/posters/:id' component={SinglePoster} />
+						<Route exact path='/cart' component={CartItem} />
 						{/* <Redirect to="/home" /> */}
 					</Switch>
 				) : (
