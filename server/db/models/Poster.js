@@ -6,13 +6,16 @@ const Poster = db.define('poster', {
 		type: Sequelize.STRING,
 		unique: true,
 		allowNull: false,
+		validate: {
+			notEmpty: false,
+		},
 	},
 	creator: {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
 	price: {
-		type: Sequelize.DECIMAL(10, 2),
+		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
 	size: {
