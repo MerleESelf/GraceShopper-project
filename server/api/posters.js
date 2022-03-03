@@ -29,3 +29,18 @@ router.get('/:id', async (req, res, next) => {
     }
   });
 
+
+
+  // delete poster /api/posters/:id
+  router.delete('/:id', async (req, res, next) => {
+    try {
+      const {posterId} = req.params
+  
+      await Poster.destroy({where: {id: posterId}})
+  
+      res.status(204).end()
+    } catch (error) {
+      next(error)
+    }
+  })
+

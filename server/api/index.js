@@ -7,4 +7,5 @@ router.use('/users', require('./users'))
 router.use('/posters', require('./posters'))
 
 router.use('/cart', require('./cart'))
+router.use('/order', require('./order'))
 

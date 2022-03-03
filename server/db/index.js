@@ -8,26 +8,10 @@ const Order = require('./models/Order');
 const CartDetail = require('./models/CartDetail');
 
 //associations could go here!
-User.belongsToMany(Poster, { through: 'UserPoster' });
-Poster.belongsToMany(User, { through: 'UserPoster' });
 User.hasMany(Order);
 Order.belongsTo(User);
-Poster.belongsToMany(CartDetail, { through: 'PosterCartDetail' });
-CartDetail.belongsToMany(Poster, { through: 'PosterCartDetail' });
-Order.hasOne(CartDetail);
-
-
-// Order.beforeValidate(order=> {
-// 	if (!order.id) {
-// 	  throw new Error('');
-// 	}
-//   });
-
-// CartDetail.beforeValidate( order=> {
-// 	if (Poster.quantity < CartDetail.quantityTotal) {
-// 	  throw new Error('Not enough in stock');
-// 	}
-//   });
+Poster.belongsToMany(Order, { through: CartDetail });
+Order.belongsToMany(Poster, { through: CartDetail });
 
 module.exports = {
 	db,
@@ -35,6 +19,6 @@ module.exports = {
 		User,
 		Poster,
 		Order,
-		CartDetail
+		CartDetail,
 	},
 };
