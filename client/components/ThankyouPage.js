@@ -23,7 +23,7 @@ export default class ThankyouPage extends React.Component {
     //   "NO ORDERS"
     // ) : (
       return(
-      <div>
+      <div id="thank">
           <h1>Thank You!</h1>
           <div>
             <h3>

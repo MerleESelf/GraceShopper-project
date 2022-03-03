@@ -20,5 +20,10 @@ form div {
   display: inline-block;
 }
 
+#thank, #orderConfirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 

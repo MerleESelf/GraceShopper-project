@@ -41,7 +41,7 @@ export default class OrderConfirmation extends React.Component {
     //   "NO ORDERS"
     // ) : (
     return (
-      <div>
+      <div id="orderConfirm">
         <h1>Thank you for your order</h1>
         <div>Details of your order are listed below:</div>
         <div>
@@ -55,7 +55,7 @@ export default class OrderConfirmation extends React.Component {
             </p>
           </div>
           <div>
-            <h3>Order Summary</h3>
+            <h3>Order Summary:</h3>
             <div>
               <p>Order Number:{order.id}</p>
               <p>Order Date: {order.updatedAt.substring(0, 10)}</p>
