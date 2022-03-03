@@ -63,6 +63,7 @@ export default class OrderConfirmation extends React.Component {
             </div>
           </div>
         </div>
+        <Link to="/posters">Back to HomePage</Link>
       </div>
     );
   }

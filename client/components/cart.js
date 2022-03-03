@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { removeItemThunk, updatedStatusThunk } from '../store/cart';
+import { Link } from "react-router-dom";
 
 const poster1 = {
 	name: 'cat',
@@ -116,9 +117,14 @@ class CartItem extends React.Component {
 
 					<button className='checkout'>Checkout</button> */}
 				</div>
-				<form>
-					<button value="submit" onSubmit={this.handleSubmit}>Check Out</button>
-				</form>
+				<div>{}
+					<form>
+						<Link to="/login"><button>Sign in and Check Out</button></Link>
+					</form>
+					<form>
+						<button value="submit" onSubmit={this.handleSubmit}>Check Out as Guest</button>
+					</form>
+				</div>
 			</div>
 		);
 	}

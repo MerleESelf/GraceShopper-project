@@ -33,6 +33,10 @@ export const removeItemThunk = (item) => {
 	};
 };
 
+export const updatedStatusThunk = () => {
+	return;
+};
+
 /**
  * REDUCER
  */
