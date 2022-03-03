@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeItemThunk } from '../store/cart';
+import { removeItemThunk, updatedStatusThunk } from '../store/cart';
 
 const poster1 = {
 	name: 'cat',
@@ -21,6 +21,11 @@ class CartItem extends React.Component {
 	}
 	removeFromCart(product) {
 		this.props.removeItem(product);
+	}
+
+	handleSubmit(event){
+		event.preventDefault();
+		this.props.updateCompleteStatus();
 	}
 	render() {
 		return (
@@ -111,6 +116,9 @@ class CartItem extends React.Component {
 
 					<button className='checkout'>Checkout</button> */}
 				</div>
+				<form>
+					<button value="submit" onSubmit={this.handleSubmit}>Check Out</button>
+				</form>
 			</div>
 		);
 	}
@@ -122,6 +130,7 @@ class CartItem extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
 	removeItem: (item) => dispatch(removeItemThunk(item)),
+	updateCompleteStatus: () => dispatch(updatedStatusThunk())
 });
 
 export default connect(null, mapDispatchToProps)(CartItem);
