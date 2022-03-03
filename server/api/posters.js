@@ -34,8 +34,8 @@ router.put("/:id", async (req, res, next) => {
     const poster = await Poster.findByPk(req.params.id);
     poster.quantity--;
     await poster.save();
-    res.json(poster);
-  } catch (err) {
-    next(err);
+    res.send(poster);
+  } catch (error) {
+    next(error);
   }
 });

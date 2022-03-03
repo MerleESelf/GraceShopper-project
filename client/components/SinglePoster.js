@@ -5,14 +5,19 @@ import { fetchSinglePoster, updateSinglePoster } from "../store/singlePoster";
 class SinglePoster extends Component {
   constructor(props) {
     super(props);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchSinglePoster(this.props.match.params.id);
   }
+  update() {
+    this.props.updateSinglePoster(this.props.match.params.id);
+  }
 
   render() {
     const { poster } = this.props;
+
     return (
       <div>
         <div id="wrap">
@@ -24,8 +29,10 @@ class SinglePoster extends Component {
             </div>
             <div className="product_desc">
               <h1>{poster.name}</h1>
-              <span className="price">$70</span>
-              <span className="sale_price">{poster.price}</span>
+              <span className="sale_price">
+                PRICE (cmon you know it's totally worth it for this SWEET poster
+                of a cat in a hat): {poster.price}
+              </span>
               <span className="stars">
                 <i className="fa fa-star"></i>
                 <i className="fa fa-star"></i>
@@ -43,31 +50,22 @@ class SinglePoster extends Component {
                   </select>
                 </div>
               </div>
-              <div className="buying">
-                <div className="quantity">
-                  <label htmlFor="quantity">QTY:</label>
-                  <input type="text" />
-                </div>
-                <div className="cart">
-                  <a href="#" className="add">
-                    {/*  */}
-                    <input
-                      type="button"
-                      value="ADD TO CART"
-                      onClick={this.props.updateSinglePoster(
-                        this.props.match.params.id
-                      )}
-                    />
-                    {/*  */}
-                  </a>
-                </div>
-              </div>
               <div className="other_options">
-                <span className="SKU">SKU:12345</span>
-                <span className="QTY">QTY:35</span>
+                <span className="QTY">NUMBER IN STOCK: {poster.quantity}</span>
               </div>
-              <div className="description">{poster.description}</div>
+              <div className="cart">
+                <a href="#" className="add">
+                  {/*  */}
+                  <input
+                    type="button"
+                    value="ADD TO CART"
+                    onClick={this.update}
+                  />
+                  {/*  */}
+                </a>
+              </div>
             </div>
+            <div className="description">{poster.description}</div>
           </div>
         </div>
       </div>
