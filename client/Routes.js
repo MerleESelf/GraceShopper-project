@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import AllPosters from './components/AllPosters';
 import SinglePoster from './components/SinglePoster';
+import OrderConfirmation from './components/OrderConfirmation'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
+import ThankyouPage from './components/ThankyouPage';
 
 /**
  * COMPONENT
@@ -26,6 +28,8 @@ class Routes extends Component {
 						<Route exact path='/posters' component={AllPosters} />
 						<Route exact path='/posters/:id' component={SinglePoster} />
 						{/* <Redirect to="/home" /> */}
+						<Route path='/checkedOut' component={ThankyouPage}/>
+						<Route path='/orderconfirmation' component={OrderConfirmation}/>
 					</Switch>
 				) : (
 					<Switch>
