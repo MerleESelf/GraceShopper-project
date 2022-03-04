@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeItemThunk, updatedStatusThunk } from '../store/cart';
+import { removedPoster } from '../store/cart';
+import RemoveButton from './RemoveButton';
 
 const poster1 = {
-	name: 'cat',
-	creator: 'Jo',
+	id: 1,
+	name: 'groomingbymoonlight',
+	creator: 'carol merle',
 	price: 20,
 	size: '18" x 12"',
 	quantity: 100,
@@ -12,18 +14,22 @@ const poster1 = {
 	imageUrl: 'https://loremflickr.com/320/240',
 };
 
-class CartItem extends React.Component {
+class Cart extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
 
 		this.removeFromCart = this.removeFromCart.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+	}
+
+	handleDelete(posterId) {
+		this.props.removeAPoster(posterId);
 	}
 	removeFromCart(product) {
 		this.props.removeItem(product);
 	}
 
-	handleSubmit(event){
+	handleSubmit(event) {
 		event.preventDefault();
 		this.props.updateCompleteStatus();
 	}
@@ -40,97 +46,44 @@ class CartItem extends React.Component {
 						<label className='product-removal'>Remove</label>
 						<label className='product-line-price'>Total</label>
 					</div>
-
-					<div className='product'>
-						<div className='product-image'>
-							<img src='https://loremflickr.com/320/240' />
-						</div>
-						<div className='product-details'>
-							<div className='product-title'>groomingbymoonlight</div>
-							<p className='product-description'>{poster1.description}</p>
-						</div>
-						<div className='product-price'>{poster1.price}</div>
-						<div className='product-quantity'>
-							<input type='number' value='2' min='1'></input>
-						</div>
-						<div className='product-removal'>
-							<button
-								className='remove-product'
-								onClick={this.props.removeItem}
-							>
-								Remove
-							</button>
-						</div>
-						<div className='product-line-price'>25.98</div>
-					</div>
-
-					<div className='product'>
-						<div className='product-image'>
-							<img src='https://loremflickr.com/320/240' />
-						</div>
-						<div className='product-details'>
-							<div className='product-title'>groomingbymoonlight</div>
-							<p className='product-description'>{poster1.description}</p>
-						</div>
-						<div className='product-price'>{poster1.price}</div>
-						<div className='product-quantity'>
-							<input type='number' value='2' min='1'></input>
-						</div>
-						<div className='product-removal'>
-							<button
-								className='remove-product'
-								onClick={this.props.removeItem}
-							>
-								Remove
-							</button>
-						</div>
-						<div className='product-line-price'>25.98</div>
-					</div>
-
-					{/* <div className='totals'>
-						<div className='totals-item'>
-							<label>Subtotal</label>
-							<div className='totals-value' id='cart-subtotal'>
-								71.97
+					{this.props.postersInCart.map((poster) => {
+						return (
+							<div className='product' key={poster.id}>
+								<div className='product-image'>
+									<img src='https://loremflickr.com/320/240' />
+								</div>
+								<div className='product-details'>
+									<div className='product-title'>{poster.name}</div>
+									<p className='product-description'>{poster.description}</p>
+								</div>
+								<div className='product-price'>{poster.price}</div>
+								<div className='product-removal'>
+									<button className='delete-btn' onClick={() => this.handleDelete(poster.id)}>
+										Remove
+									</button>
+									;
+								</div>
+								<div className='product-line-price'>25.98</div>
 							</div>
-						</div>
-						<div className='totals-item'>
-							<label>Tax (5%)</label>
-							<div className='totals-value' id='cart-tax'>
-								3.60
-							</div>
-						</div>
-						<div className='totals-item'>
-							<label>Shipping</label>
-							<div className='totals-value' id='cart-shipping'>
-								15.00
-							</div>
-						</div>
-						<div className='totals-item totals-item-total'>
-							<label>Grand Total</label>
-							<div className='totals-value' id='cart-total'>
-								90.57
-							</div>
-						</div>
-					</div>
-
-					<button className='checkout'>Checkout</button> */}
+						);
+					})}
 				</div>
 				<form>
-					<button value="submit" onSubmit={this.handleSubmit}>Check Out</button>
+					<button value='submit' onSubmit={this.handleSubmit}>
+						Check Out
+					</button>
 				</form>
 			</div>
 		);
 	}
 }
 
-// const mapStateToProps = (state) => ({
-// 	poster: state.singlePoster,
-// });
-
-const mapDispatchToProps = (dispatch) => ({
-	removeItem: (item) => dispatch(removeItemThunk(item)),
-	updateCompleteStatus: () => dispatch(updatedStatusThunk())
+const mapStateToProps = (state) => ({
+	postersInCart: state.cart.cart.posters,
 });
 
-export default connect(null, mapDispatchToProps)(CartItem);
+const mapDispatchToProps = (dispatch) => ({
+	removeAPoster: (posterId) => dispatch(removedPoster(posterId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
