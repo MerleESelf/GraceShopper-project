@@ -17,6 +17,7 @@ async function seed() {
 	const users = await Promise.all([
 		User.create({ username: 'cody', password: '123' }),
 		User.create({ username: 'murphy', password: '123' }),
+		User.create({ username: 'amber', password: '123' }),
 	]);
 
 	//Creating Posters
@@ -27,9 +28,15 @@ async function seed() {
 			description: "It's a cat, it's a moon, what more would you want",
 			price: 20.0,
 		}),
-    	Poster.create({
+		Poster.create({
 			name: 'groomingbysunlight',
 			creator: 'amber L',
+			description: "It's a cat, it's a sun, what more would you want",
+			price: 40.0,
+		}),
+		Poster.create({
+			name: 'sunlight',
+			creator: 'amber',
 			description: "It's a cat, it's a sun, what more would you want",
 			price: 40.0,
 		}),
@@ -37,16 +44,34 @@ async function seed() {
 
 	// Creating Order
 	const orders = await Promise.all([
-		Order.create({moneyTotal: 200})
+		Order.create({ isComplete: true, userId: 1, moneyTotal: 20 }),
+		Order.create({ isComplete: false, userId: 2, moneyTotal: 20 }),
+		Order.create({ isComplete: false, userId: 3, moneyTotal: 20 }),
 	]);
 
 	// Creating CartDetail
 	const cartDetail = await Promise.all([
-		CartDetail.create({quantityTotal: 3})
+		CartDetail.create({
+			price: 100,
+			quantity: 10,
+			orderId: 1,
+			posterId: 1,
+		}),
+		CartDetail.create({
+			price: 110,
+			quantity: 20,
+			orderId: 2,
+			posterId: 2,
+		}),
+		CartDetail.create({
+			price: 120,
+			quantity: 30,
+			orderId: 3,
+			posterId: 3,
+		}),
 	]);
 
 	// Creating Associations
-
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);
@@ -62,8 +87,8 @@ async function seed() {
 			200: orders[0],
 		},
 		cartDetail: {
-			3: cartDetail[0]
-		}
+			3: cartDetail[0],
+		},
 	};
 }
 
