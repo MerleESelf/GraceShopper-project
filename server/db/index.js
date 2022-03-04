@@ -17,7 +17,6 @@ Poster.belongsToMany(CartDetail, { through: "PosterCartDetail" });
 CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
 Order.hasOne(CartDetail);
 
-
 // Order.beforeValidate(order=> {
 // 	if (!order.id) {
 // 	  throw new Error('');
@@ -36,6 +35,6 @@ module.exports = {
     User,
     Poster,
     Order,
-    CartDetail
+    CartDetail,
   },
 };
