@@ -1,21 +1,22 @@
 const router = require('express').Router();
-const { models: { CartDetail }} = require('../db')
-module.exports = router
+const {
+	models: { CartDetail, Order, Poster },
+} = require('../db');
+module.exports = router;
 
 //    /api/cart/:posterId/:orderId
 
-router.delete('/:posterId/:orderId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
+	console.log('req', req.body.id);
+	console.log('res', res.body.id);
 	try {
-		const productOrder = await CartDetail.destroy({
+		await Poster.destroy({
 			where: {
-				posterId: req.params.posterId,
-				orderId: req.params.orderId,
+				id: res.body.id,
 			},
 		});
-
-		res.json(productOrder);
-	} catch (err) {
-		next(err);
+		res.end();
+	} catch (error) {
+		next(error);
 	}
 });
-

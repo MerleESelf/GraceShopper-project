@@ -5,8 +5,9 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import allPosters from './posters'
 import singlePoster from './singlePoster'
+import cart from './cart'
 
-const reducer = combineReducers({ auth, allPosters, singlePoster })
+const reducer = combineReducers({ auth, allPosters, singlePoster,cart })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
