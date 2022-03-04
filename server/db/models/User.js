@@ -15,9 +15,10 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
   }, 
-  access: {
+  userType: {
     type: Sequelize.ENUM("admin", "user"),
-    allowNull: false
+    allowNull: false,
+    default: "user"
   }
 })
 
