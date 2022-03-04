@@ -36,7 +36,6 @@ export default class ThankyouPage extends React.Component {
                         <h2>
                             Since you are here, join our list for discounts!
                             <form>
-                                <input type="text" placeholder="Email" />
                                 <button value="submit">Yes! Sign Me Up</button>
                             </form>
                         </h2>

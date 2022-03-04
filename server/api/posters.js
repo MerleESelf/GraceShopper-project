@@ -7,6 +7,8 @@ const {
 } = require("../db");
 module.exports = router;
 
+
+//check if it's admin 
 // route for all posters
 router.get("/", async (req, res, next) => {
   try {
@@ -31,6 +33,8 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+//gate middleware
+//run different route to check who you are, if so continue
 router.put("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
