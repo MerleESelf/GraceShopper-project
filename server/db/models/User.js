@@ -15,10 +15,8 @@ const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
   }, 
-  userType: {
-    type: Sequelize.ENUM("admin", "user"),
-    allowNull: false,
-    default: "user"
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
   }
 })
 
@@ -45,6 +43,7 @@ User.authenticate = async function({ username, password }){
       const error = Error('Incorrect username/password');
       error.status = 401;
       throw error;
+      console.log('here I am ')
     }
     return user.generateToken();
 };
