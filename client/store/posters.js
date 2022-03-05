@@ -54,7 +54,7 @@ export const removePosterThunk = (id, token) => {
   return async (dispatch) => {
     try{
       console.log("before axios call id, isAdmin", token)
-      const { data } = await axios.delete(`/api/admin/posters/${id}`, { params: {
+      const { data } = await axios.delete(`/api/admin/posters/${id}`,{ params: {
         boo: token
       }})
       console.log("removethunk, data", data)
@@ -65,10 +65,13 @@ export const removePosterThunk = (id, token) => {
   }
 }
 
-export const adminUpdateSinglePoster = (id, poster) => {
+export const adminUpdateSinglePoster = (id, poster, token) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/admin/posters/${id}`, poster);
+      const { data } = await axios.put(`/api/admin/posters/${id}`,{ params: {
+        boo: token,
+        data: poster
+      }});
       dispatch(adminUpdatePoster(data));
     } catch (err) {
       console.log(err);

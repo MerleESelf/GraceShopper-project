@@ -50,7 +50,8 @@ class PosterCard extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.adminUpdateSinglePoster(this.props.poster.id,{...this.props.poster,...this.state});
+    const token = window.localStorage.token;
+    this.props.adminUpdateSinglePoster(this.props.poster.id,{...this.props.poster,...this.state}, token);
   }
 
   handleChange(event) {
@@ -70,8 +71,6 @@ class PosterCard extends React.Component {
             <img className="posterImage" src={poster.imageUrl} alt="image" />
         </div>
         <form className="edit" onSubmit={this.handleSubmit}>
-          {/* <label htmlFor="imageUrl">Poster ImageUrl:</label>
-          <input name="imageUrl" value={poster.imageUrl} onChange={this.handleChange}/> */}
           <label htmlFor="name">Poster Name:</label>
           <input name="name" value={poster.name} onChange={this.handleChange} />
           <label htmlFor="creator">Created By: </label>
@@ -129,7 +128,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadPosters: () => dispatch(getAllPosters()),
     removePoster: (id, token) => dispatch(removePosterThunk(id, token)),
-    adminUpdateSinglePoster: (id, poster) => dispatch(adminUpdateSinglePoster(id, poster))
+    adminUpdateSinglePoster: (id, poster, token) => dispatch(adminUpdateSinglePoster(id, poster, token))
   };
 };
 

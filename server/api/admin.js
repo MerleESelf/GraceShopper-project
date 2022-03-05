@@ -12,19 +12,32 @@ module.exports = router;
 //   return user.isAdmin;
 // }
 
-const isAdmin = async (req, res, next) => {
+const isAdminRemove = async (req, res, next) => {
   try {
-    console.log('in isAdmin API, req.query', req.query.boo)
-    const token = req.query.boo
+    console.log("in isAdmin API, req.query.boo", req.query.boo);
+    const token = req.query.boo;
     const user = await User.findByToken(token);
     req.isAdmin = user.isAdmin;
     next();
-  } catch(error) {
+  } catch (error) {
     next(error);
   }
 };
 
-//check if it's admin 
+const isAdminUpdate = async (req, res, next) => {
+    try {
+      console.log("in isAdmin API, req.body.params.boo", req.body.params.boo);
+      const token = req.body.params.boo;
+      const user = await User.findByToken(token);
+      req.isAdmin = user.isAdmin;
+      req.body = req.body.params.data
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+
+//check if it's admin
 // route for all posters
 router.get("/", async (req, res, next) => {
   try {
@@ -51,13 +64,13 @@ router.get("/", async (req, res, next) => {
 // });
 
 // POST /api//admin/posters/
-router.post("/", isAdmin, async (req, res, next) => {
+router.post("/", isAdminUpdate, async (req, res, next) => {
   try {
-    if(req.isAdmin){
+    if (req.isAdmin) {
       const poster = await Poster.create(req.body);
       res.send(poster);
     } else {
-      throw new Error('Unauthorized')
+      throw new Error("Unauthorized");
     }
   } catch (error) {
     next(error);
@@ -65,17 +78,17 @@ router.post("/", isAdmin, async (req, res, next) => {
 });
 
 //DELETE /api/admin/posters/:id
-router.delete("/:id", isAdmin, async (req, res, next) => {
+router.delete("/:id", isAdminRemove, async (req, res, next) => {
   try {
-    console.log("-----API _______req.body", req.isAdmin) 
-    console.log("-----API _______req.params", req.params)  
-    if(req.isAdmin){
+    console.log("-----API _______req.body", req.isAdmin);
+    console.log("-----API _______req.params", req.params);
+    if (req.isAdmin) {
       const poster = await Poster.findByPk(req.params.id);
-      poster.destroy()
-      console.log(poster)
+      poster.destroy();
+      console.log(poster);
       res.json(poster);
     } else {
-      throw new Error('Unauthorized')
+      throw new Error("Unauthorized");
     }
   } catch (error) {
     next(error);
@@ -83,11 +96,17 @@ router.delete("/:id", isAdmin, async (req, res, next) => {
 });
 
 //PUT /api/admin/posters/:id
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isAdminUpdate, async (req, res, next) => {
   try {
-    const poster = await Poster.findByPk(req.params.id);
-    console.log(req.body)
-    res.send(await poster.update(req.body));
+    console.log("-----API _______req.body", req.isAdmin);
+    console.log("-----API _______req.params", req.params);
+    if (req.isAdmin) {
+      const poster = await Poster.findByPk(req.params.id);
+      console.log(req.body);
+      res.send(await poster.update(req.body));
+    } else {
+      throw new Error("Unauthorized");
+    }
   } catch (error) {
     next(error);
   }
