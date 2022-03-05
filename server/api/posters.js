@@ -7,25 +7,6 @@ const {
 } = require("../db");
 module.exports = router;
 
-// async function isAdmin(token){
-//   const user = await User.findByToken(token);
-//   return user.isAdmin;
-// }
-
-const isAdmin = async (req, res, next) => {
-  try {
-    console.log('in isAdmin API, req.query', req.query.boo)
-    const token = req.query.boo
-    const user = await User.findByToken(token);
-    req.isAdmin = user.isAdmin;
-    next();
-  } catch(error) {
-    next(error);
-  }
-};
-
-//check if it's admin 
-// route for all posters
 router.get("/", async (req, res, next) => {
   try {
     const allPosters = await Poster.findAll();
@@ -49,38 +30,6 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-
-// POST /api/posters/
-router.post("/", isAdmin, async (req, res, next) => {
-  try {
-    if(req.isAdmin){
-      const poster = await Poster.create(req.body);
-      res.send(poster);
-    } else {
-      throw new Error('Unauthorized')
-    }
-  } catch (error) {
-    next(error);
-  }
-});
-
-//DELETE /api/posters/:id
-router.delete("/:id", isAdmin, async (req, res, next) => {
-  try {
-    console.log("-----API _______req.body", req.isAdmin) 
-    console.log("-----API _______req.params", req.params)  
-    if(req.isAdmin){
-      const poster = await Poster.findByPk(req.params.id);
-      poster.destroy()
-      res.send(poster);
-    } else {
-      throw new Error('Unauthorized')
-    }
-  } catch (error) {
-    next(error);
-  }
-});
-
 
 router.put("/:id", async (req, res, next) => {
   try {
