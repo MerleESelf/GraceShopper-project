@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import AllPosters from "./components/AllPosters";
+import AdminPosters from "./components/Admin/AdminPosters"
 import SinglePoster from "./components/SinglePoster";
 import OrderConfirmation from "./components/OrderConfirmation";
 import { Login, Signup } from "./components/AuthForm";
@@ -32,6 +33,8 @@ class Routes extends Component {
             {/* <Redirect to="/home" /> */}
             <Route path="/checkedOut" component={ThankyouPage} />
             <Route path="/orderconfirmation" component={OrderConfirmation} />
+
+            <Route path="/admin/posters" component={AdminPosters} />
           </Switch>
         ) : (
           <Switch>

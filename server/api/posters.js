@@ -7,14 +7,27 @@ const {
 } = require("../db");
 module.exports = router;
 
+// async function isAdmin(token){
+//   const user = await User.findByToken(token);
+//   return user.isAdmin;
+// }
+
+const isAdmin = async (req, res, next) => {
+  try {
+    console.log('in isAdmin API, req.query', req.query.boo)
+    const token = req.query.boo
+    const user = await User.findByToken(token);
+    req.isAdmin = user.isAdmin;
+    next();
+  } catch(error) {
+    next(error);
+  }
+};
 
 //check if it's admin 
 // route for all posters
 router.get("/", async (req, res, next) => {
   try {
-    const token = req.query.token;
-    const user = await User.findByToken(token);
-    console.log(user.isAdmin);
     const allPosters = await Poster.findAll();
     res.send(allPosters);
   } catch (error) {
@@ -37,8 +50,38 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//gate middleware
-//run different route to check who you are, if so continue
+// POST /api/posters/
+router.post("/", isAdmin, async (req, res, next) => {
+  try {
+    if(req.isAdmin){
+      const poster = await Poster.create(req.body);
+      res.send(poster);
+    } else {
+      throw new Error('Unauthorized')
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//DELETE /api/posters/:id
+router.delete("/:id", isAdmin, async (req, res, next) => {
+  try {
+    console.log("-----API _______req.body", req.isAdmin) 
+    console.log("-----API _______req.params", req.params)  
+    if(req.isAdmin){
+      const poster = await Poster.findByPk(req.params.id);
+      poster.destroy()
+      res.send(poster);
+    } else {
+      throw new Error('Unauthorized')
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 router.put("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
