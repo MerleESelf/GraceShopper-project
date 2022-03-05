@@ -109,7 +109,7 @@ export class AdminPosters extends React.Component {
     return this.props.state === undefined || this.props.state.length === 0 ? (
       "NO POSTERS"
     ) : (
-      <div>
+      <div class="middle">
         {this.props.state.map((poster) => {
           return (
             <PosterCard
@@ -134,7 +134,7 @@ const mapState = (reduxState) => {
 const mapDispatch = (dispatch, {history}) => {
   return {
     loadPosters: () => dispatch(getAllPosters()),
-    removePoster: (id, token) => dispatch(removePosterThunk(id, token)),
+    removePoster: (id, token) => dispatch(removePosterThunk(id, token, history)),
     adminUpdateSinglePoster: (id, poster, token) =>
       dispatch(adminUpdateSinglePoster(id, poster, token, history)),
   };

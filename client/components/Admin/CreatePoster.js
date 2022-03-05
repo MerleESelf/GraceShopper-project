@@ -37,7 +37,7 @@ export class CreatePoster extends React.Component {
         ) : (
           ""
         )}
-        <form className="edit" onSubmit={this.handleSubmit}>
+        <form className="edit">
           <label htmlFor="name">Poster Name:</label>
           <input name="name" value={poster.name} onChange={this.handleChange} />
           <label htmlFor="creator">Created By: </label>
@@ -64,10 +64,10 @@ export class CreatePoster extends React.Component {
             value={poster.quantity}
             onChange={this.handleChange}
           />
-          <button id="saveChanges" type="submit">
+        </form>
+        <button id="saveChanges" type="submit" onSubmit={this.handleSubmit}>
             Save Changes
           </button>
-        </form>
       </div>
     );
   }

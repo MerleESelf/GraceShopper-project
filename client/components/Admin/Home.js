@@ -12,15 +12,16 @@ export const Home = (props) => {
     <>
       <div>
         <h3>Welcome, {username}</h3>
-      </div>
-      <div>
-        <h2>THE POSTER SHOP</h2>
-      </div>
-      <div>
+        <div>
         <h4>
           <Link to="/admin/posters">MANAGE YOUR POSTER</Link>
         </h4>
       </div>
+      </div>
+      <div>
+      <img src="/dashboard.png"  />     
+      </div>
+
     </>
   );
 };

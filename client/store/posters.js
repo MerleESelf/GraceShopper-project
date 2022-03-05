@@ -54,13 +54,14 @@ export const createPosterThunk = (token, poster, history) => {
   }
 }
 
-export const removePosterThunk = (id, token) => {
+export const removePosterThunk = (id, token, history) => {
   return async (dispatch) => {
     try{
       const { data } = await axios.delete(`/api/admin/posters/${id}`,{ params: {
         boo: token
       }})
       dispatch(removeAPoster(data))
+      history.push("/admin/posters")
     } catch (err) {
       console.log(err);
     }
