@@ -27,7 +27,6 @@ router.post('/signup', async (req, res, next) => {
 router.get('/me', async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization)
-    console.log("API user =========", user)
     res.send(user)
   } catch (ex) {
     next(ex)
