@@ -11,6 +11,7 @@ import { me } from "./store";
 import ThankyouPage from "./components/ThankyouPage";
 import CartItem from "./components/cart";
 import CreatePoster from "./components/Admin/CreatePoster";
+import Users from "./components/Admin/Users"
 
 /**
  * COMPONENT
@@ -37,6 +38,7 @@ class Routes extends Component {
 
             <Route path="/admin/posters" component={AdminPosters} />
             <Route path="/admin/create" component={CreatePoster} />
+            <Route path="/admin/users" component={Users} />
           </Switch>
         ) : (
           <Switch>

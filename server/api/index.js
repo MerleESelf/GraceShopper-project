@@ -1,8 +1,6 @@
 const router = require("express").Router();
 module.exports = router;
 
-router.use("/users", require("./users"));
-
 // adding access to poster routes below
 router.use("/posters", require("./posters"));
 
@@ -10,7 +8,8 @@ router.use("/posters", require("./posters"));
 router.use("/order", require("./order"));
 
 //add access to admin poster routes below
-router.use("/admin/posters", require("./admin"));
+router.use("/admin/posters", require("./adminPoster"));
+router.use("/admin/users", require("./users"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

@@ -7,11 +7,6 @@ const {
 } = require("../db");
 module.exports = router;
 
-// async function isAdmin(token){
-//   const user = await User.findByToken(token);
-//   return user.isAdmin;
-// }
-
 const isAdminRemove = async (req, res, next) => {
   try {
     console.log("in isAdmin API, req.query.boo", req.query.boo);
@@ -36,32 +31,6 @@ const isAdminUpdate = async (req, res, next) => {
       next(error);
     }
   };
-
-//check if it's admin
-// route for all posters
-router.get("/", async (req, res, next) => {
-  try {
-    const allPosters = await Poster.findAll();
-    res.send(allPosters);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const poster = await Poster.findByPk(req.params.id);
-//     if (!poster) {
-//       let err = new Error("No cats or hats or posters here!");
-//       err.status = 404;
-//       next(err);
-//     } else {
-//       res.send(poster);
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 // POST /api//admin/posters/
 router.post("/", isAdminUpdate, async (req, res, next) => {
