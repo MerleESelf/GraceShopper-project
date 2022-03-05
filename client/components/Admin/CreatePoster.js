@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createPosterThunk } from "/Users/carolwu/Documents/Grace Hopper/2.0 Senior Phase/GraceShopper-project/client/store/posters.js";
+import { createPosterThunk } from "../../store/posters";
 import { Link } from "react-router-dom";
 // import { isAdmin } from "../../store";
 
