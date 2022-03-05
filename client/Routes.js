@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import { me } from "./store";
 import ThankyouPage from "./components/ThankyouPage";
 import CartItem from "./components/cart";
+import CreatePoster from "./components/Admin/CreatePoster";
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ class Routes extends Component {
             <Route path="/orderconfirmation" component={OrderConfirmation} />
 
             <Route path="/admin/posters" component={AdminPosters} />
+            <Route path="/admin/create" component={CreatePoster} />
           </Switch>
         ) : (
           <Switch>
