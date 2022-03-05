@@ -3,11 +3,10 @@
 const router = require("express").Router();
 module.exports = router;
 const {
-  models: { Poster },
+  models: { Poster, User },
 } = require("../db");
 module.exports = router;
 
-// route for all posters
 router.get("/", async (req, res, next) => {
   try {
     const allPosters = await Poster.findAll();
@@ -16,6 +15,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
 router.get("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
