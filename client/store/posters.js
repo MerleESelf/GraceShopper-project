@@ -6,6 +6,7 @@ import axios from "axios";
 const GET_ALL_POSTERS = "GET_ALL_POSTERS";
 const SET_POSTER = "SET_POSTER";
 const REMOVE_POSTER = "REMOVE_POSTER";
+const ADMIN_UPDATE_POSTER = "ADMIN_UPDATE_POSTER";
 
 /**
  * ACTION CREATORS
@@ -22,6 +23,11 @@ const removeAPoster = (poster) => ({
   type: REMOVE_POSTER,
   poster
 })
+
+const adminUpdatePoster = (poster) => ({
+  type: ADMIN_UPDATE_POSTER,
+  poster,
+});
 /**
  * THUNK CREATORS
  */
@@ -60,6 +66,18 @@ export const removePosterThunk = (id, token) => {
     }
   }
 }
+
+export const adminUpdateSinglePoster = (id, poster) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/admin/posters/${id}`, poster);
+      dispatch(adminUpdatePoster(data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 /**
  * REDUCER
  */
@@ -71,6 +89,10 @@ export default function (state = [], action) {
       return state.filter((poster) => poster.id !== action.poster.id)
     case SET_POSTER:
       return [...state, action.poster]
+    case ADMIN_UPDATE_POSTER:
+      return state.map((poster) =>
+      poster.id === action.poster.id ? action.poster : poster
+    );
     default:
       return state;
   }
