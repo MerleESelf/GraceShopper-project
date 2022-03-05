@@ -9,8 +9,8 @@ router.use("/posters", require("./posters"));
 //router.use("/cart", require("./cart"));
 router.use("/order", require("./order"));
 
-//router.use("/admin", require("./admin"));
-router.use("/admin", require("./admin"));
+//add access to admin poster routes below
+router.use("/admin/posters", require("./admin"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

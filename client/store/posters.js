@@ -42,7 +42,7 @@ export const getAllPosters = () => {
 export const createPosterThunk = () => {
   return async (dispatch) => {
     try{
-      const { data } = await axios.post('/api/posters');
+      const { data } = await axios.post('/api/admin/posters');
       dispatch(createAPoster(data))
     } catch (err) {
       console.log(err);
@@ -54,12 +54,10 @@ export const removePosterThunk = (id, token) => {
   return async (dispatch) => {
     try{
       console.log("before axios call id, isAdmin", token)
-      const { data } = await axios.delete(`/api/posters/${id}`, { params: {
+      const { data } = await axios.delete(`/api/admin/posters/${id}`, { params: {
         boo: token
       }})
-      .then(response => response.status)
-      .catch(err => console.warn(err));
-      console.log("removethunk")
+      console.log("removethunk, data", data)
       dispatch(removeAPoster(data))
     } catch (err) {
       console.log(err);
@@ -86,6 +84,7 @@ export default function (state = [], action) {
     case GET_ALL_POSTERS:
       return action.posters;
     case REMOVE_POSTER:
+      console.log(action.poster)
       return state.filter((poster) => poster.id !== action.poster.id)
     case SET_POSTER:
       return [...state, action.poster]

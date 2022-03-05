@@ -72,7 +72,8 @@ router.delete("/:id", isAdmin, async (req, res, next) => {
     if(req.isAdmin){
       const poster = await Poster.findByPk(req.params.id);
       poster.destroy()
-      res.send(poster);
+      console.log(poster)
+      res.json(poster);
     } else {
       throw new Error('Unauthorized')
     }
@@ -85,9 +86,8 @@ router.delete("/:id", isAdmin, async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
-    
-    await poster.save();
-    res.send(poster);
+    console.log(req.body)
+    res.send(await poster.update(req.body));
   } catch (error) {
     next(error);
   }

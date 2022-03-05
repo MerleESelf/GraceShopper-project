@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 // import { isAdmin } from "../../store";
 
 class PosterCard extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       name: "",
       creator: "",
@@ -50,7 +50,7 @@ class PosterCard extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateSinglePoster({ ...this.state });
+    this.props.adminUpdateSinglePoster(this.props.poster.id,{...this.props.poster,...this.state});
   }
 
   handleChange(event) {
@@ -61,18 +61,17 @@ class PosterCard extends React.Component {
 
   render() {
     const poster = this.state;
-    // console.log("this.props in single", this.props);
+    console.log("this.props in single", this.props);
+    console.log("this.state in single", this.state);
 
     return (
       <div className="poster">
         <div>
-          <Link to={`/posters/${poster.id}`}>
             <img className="posterImage" src={poster.imageUrl} alt="image" />
-          </Link>
         </div>
         <form className="edit" onSubmit={this.handleSubmit}>
-          <label htmlFor="imageUrl">Poster ImageUrl:</label>
-          <input name="imageUrl" value={poster.imageUrl} onChange={this.handleChange}/>
+          {/* <label htmlFor="imageUrl">Poster ImageUrl:</label>
+          <input name="imageUrl" value={poster.imageUrl} onChange={this.handleChange}/> */}
           <label htmlFor="name">Poster Name:</label>
           <input name="name" value={poster.name} onChange={this.handleChange} />
           <label htmlFor="creator">Created By: </label>
@@ -99,7 +98,7 @@ export class AdminPosters extends React.Component {
   }
 
   render() {
-    console.log("this.props", this.props);
+    console.log("this.props in adminPoster", this.props);
     return this.props.state === undefined || this.props.state.length === 0 ? (
       "NO POSTERS"
     ) : (
@@ -110,7 +109,7 @@ export class AdminPosters extends React.Component {
               key={poster.id}
               poster={poster}
               removePoster={this.props.removePoster}
-              updateSinglePoster = {this.props.updateSinglePoster}
+              adminUpdateSinglePoster = {this.props.adminUpdateSinglePoster}
             />
           );
         })}
@@ -130,7 +129,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadPosters: () => dispatch(getAllPosters()),
     removePoster: (id, token) => dispatch(removePosterThunk(id, token)),
-    adminUpdateSinglePoster: (id) => dispatch(adminUpdateSinglePoster(id))
+    adminUpdateSinglePoster: (id, poster) => dispatch(adminUpdateSinglePoster(id, poster))
   };
 };
 
