@@ -22,11 +22,6 @@ class PosterCard extends React.Component {
             <p>${poster.price}</p>
           </div>
           <form className="addToCart" onSubmit={(ev) => ev.preventDefault()}>
-            <div>
-              <button type="button">
-                Add to Cart
-              </button>
-            </div>
           </form>
         </div>
       );
@@ -53,7 +48,6 @@ export class AllPosters extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  console.log("reduxState", reduxState)
   return {
     state: reduxState.allPosters,
   };

@@ -9,7 +9,6 @@ module.exports = router;
 
 const isAdminRemove = async (req, res, next) => {
   try {
-    console.log("in isAdmin API, req.query.boo", req.query.boo);
     const token = req.query.boo;
     const user = await User.findByToken(token);
     req.isAdmin = user.isAdmin;
@@ -21,7 +20,6 @@ const isAdminRemove = async (req, res, next) => {
 
 const isAdminUpdate = async (req, res, next) => {
     try {
-      console.log("in isAdmin API, req.body.params.boo", req.body.params.boo);
       const token = req.body.params.boo;
       const user = await User.findByToken(token);
       req.isAdmin = user.isAdmin;
@@ -49,12 +47,9 @@ router.post("/", isAdminUpdate, async (req, res, next) => {
 //DELETE /api/admin/posters/:id
 router.delete("/:id", isAdminRemove, async (req, res, next) => {
   try {
-    console.log("-----API _______req.body", req.isAdmin);
-    console.log("-----API _______req.params", req.params);
     if (req.isAdmin) {
       const poster = await Poster.findByPk(req.params.id);
       poster.destroy();
-      console.log(poster);
       res.json(poster);
     } else {
       throw new Error("Unauthorized");
@@ -67,11 +62,8 @@ router.delete("/:id", isAdminRemove, async (req, res, next) => {
 //PUT /api/admin/posters/:id
 router.put("/:id", isAdminUpdate, async (req, res, next) => {
   try {
-    console.log("-----API _______req.body", req.isAdmin);
-    console.log("-----API _______req.params", req.params);
     if (req.isAdmin) {
       const poster = await Poster.findByPk(req.params.id);
-      console.log(req.body);
       res.send(await poster.update(req.body));
     } else {
       throw new Error("Unauthorized");

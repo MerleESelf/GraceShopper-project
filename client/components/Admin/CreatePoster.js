@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createPosterThunk } from "/Users/carolwu/Documents/Grace Hopper/2.0 Senior Phase/GraceShopper-project/client/store/posters.js";
-import { Link } from "react-router-dom";
-// import { isAdmin } from "../../store";
+import { createPosterThunk } from "../../store/posters";
 
 export class CreatePoster extends React.Component {
   constructor() {
@@ -21,9 +19,7 @@ export class CreatePoster extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = window.localStorage.token;
-    this.props.createPoster(
-      token, this.state
-    );
+    this.props.createPoster(token, this.state);
   }
 
   handleChange(event) {
@@ -33,8 +29,7 @@ export class CreatePoster extends React.Component {
   }
 
   render() {
-    console.log("this.props in CreatePoster", this.state);
-    const poster = this.state
+    const poster = this.state;
     return (
       <div>
         {this.state.error ? (
@@ -79,7 +74,6 @@ export class CreatePoster extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  console.log("reduxState", reduxState);
   return {
     state: reduxState.allPosters,
   };
