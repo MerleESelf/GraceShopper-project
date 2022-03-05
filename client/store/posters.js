@@ -39,7 +39,7 @@ export const getAllPosters = () => {
   };
 };
 
-export const createPosterThunk = (token, poster) => {
+export const createPosterThunk = (token, poster, history) => {
   return async (dispatch) => {
     try{
       const { data } = await axios.post('/api/admin/posters',{ params: {
@@ -47,6 +47,7 @@ export const createPosterThunk = (token, poster) => {
         data: poster
       }});
       dispatch(createAPoster(data))
+      history.push("/admin/posters")
     } catch (err) {
       console.log(err);
     }

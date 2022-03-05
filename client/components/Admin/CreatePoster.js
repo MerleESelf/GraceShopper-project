@@ -85,10 +85,10 @@ const mapState = (reduxState) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     createPoster: (token, poster) =>
-      dispatch(createPosterThunk(token, poster)),
+      dispatch(createPosterThunk(token, poster, history)),
   };
 };
 
