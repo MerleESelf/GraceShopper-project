@@ -4,7 +4,7 @@ import {
   getAllPosters,
   removePosterThunk,
   adminUpdateSinglePoster
-} from "/Users/carolwu/Documents/Grace Hopper/2.0 Senior Phase/GraceShopper-project/client/store/posters.js";
+} from "../../store/posters";
 import { Link } from "react-router-dom";
 // import { isAdmin } from "../../store";
 

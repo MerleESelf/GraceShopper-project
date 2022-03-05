@@ -3,10 +3,13 @@
 const router = require("express").Router();
 module.exports = router;
 const {
-  models: { Poster, User },
+  models: { Poster },
 } = require("../db");
 module.exports = router;
 
+
+//check if it's admin 
+// route for all posters
 router.get("/", async (req, res, next) => {
   try {
     const allPosters = await Poster.findAll();
@@ -15,7 +18,6 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-
 router.get("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
@@ -31,6 +33,8 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+//gate middleware
+//run different route to check who you are, if so continue
 router.put("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
