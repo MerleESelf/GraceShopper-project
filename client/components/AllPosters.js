@@ -39,7 +39,9 @@ export class AllPosters extends React.Component {
       "NO POSTERS"
     ) : (
 
+
       <div id="allPosters" className="posters-container">
+
 
           {this.props.state.map((poster) => {
             return <PosterCard key={poster.id} poster={poster} />;

@@ -45,9 +45,9 @@ const mapState = (reduxState) => {
 };
 
 const mapDispatch = (dispatch) => {
-	return {
-		loadUsers: (token) => dispatch(fetchUsers(token)),
-	};
+  return {
+    loadUsers: (token) => dispatch(fetchUsers(token)),
+  };
 };
 
 export default connect(mapState, mapDispatch)(Users);

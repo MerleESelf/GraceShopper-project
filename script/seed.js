@@ -151,6 +151,7 @@ async function seed() {
 		)
 	);
 	// Creating Associations
+	
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);
