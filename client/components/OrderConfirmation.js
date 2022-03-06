@@ -1,7 +1,9 @@
 import React from "react";
-//import { connect } from "react-redux";
-//import { getOrder } from "";
-import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+// import {
+// 	fetchCompleteOrder,
+// } from '../store/order';
+// import { Link } from "react-router-dom";
 
 const dummyData = {
   order: {
