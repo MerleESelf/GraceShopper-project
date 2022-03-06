@@ -19,50 +19,54 @@ async function seed() {
 		User.create({ username: 'murphy', password: '123'}),
 		User.create({ username: 'amber', password: '123'}),
 	]);
-
+	
 	//Creating Posters
+	const groomingbymoonlight = Poster.create({
+		name: 'groomingbymoonlight',
+		creator: 'carol merle',
+		description: "It's a cat, it's a moon, what more would you want",
+		price: 20,
+	})
+
 	const posters = await Promise.all([
-		Poster.create({
-			name: 'groomingbymoonlight',
-			creator: 'carol merle',
-			description: "It's a cat, it's a moon, what more would you want",
-			price: 20.0,
-		}),
+		groomingbymoonlight,
 		Poster.create({
 			name: 'groomingbysunlight',
 			creator: 'amber L',
 			description: "It's a cat, it's a sun, what more would you want",
-			price: 40.0,
+			price: 40,
 		}),
 		Poster.create({
 			name: 'sunlight',
 			creator: 'amber',
 			description: "It's a cat, it's a sun, what more would you want",
-			price: 40.0,
+			price: 40,
 		}),
 	]);
 
 	// Creating Order
 	const orders = await Promise.all([
 		Order.create({ isComplete: true, userId: 1, moneyTotal: 20 }),
-		Order.create({ isComplete: false, userId: 2, moneyTotal: 20 }),
+		Order.create({ isComplete: false, userId: 1, moneyTotal: 20 }),
 		Order.create({ isComplete: false, userId: 3, moneyTotal: 20 }),
 	]);
 
 	// Creating CartDetail
+	const cartA = CartDetail.create({
+		price: 100,
+		quantity: 10,
+		orderId: 2,
+		posterId: 1,
+	})
+	const cartB = CartDetail.create({
+		price: 110,
+		quantity: 20,
+		orderId: 2,
+		posterId: 2,
+	})
 	const cartDetail = await Promise.all([
-		CartDetail.create({
-			price: 100,
-			quantity: 10,
-			orderId: 1,
-			posterId: 1,
-		}),
-		CartDetail.create({
-			price: 110,
-			quantity: 20,
-			orderId: 2,
-			posterId: 2,
-		}),
+		cartA,
+		cartB,
 		CartDetail.create({
 			price: 120,
 			quantity: 30,
@@ -72,7 +76,6 @@ async function seed() {
 	]);
 
 	// Creating Associations
-	
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded successfully`);
@@ -90,6 +93,7 @@ async function seed() {
 		cartDetail: {
 			3: cartDetail[0],
 		},
+		// cartDetailPosters
 	};
 }
 

@@ -15,6 +15,7 @@ User.hasMany(Order);
 Order.belongsTo(User);
 Poster.belongsToMany(CartDetail, { through: "PosterCartDetail" });
 CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
+Poster.hasMany(CartDetail)
 Order.hasOne(CartDetail);
 
 // Order.beforeValidate(order=> {
@@ -28,6 +29,7 @@ Order.hasOne(CartDetail);
 // 	  throw new Error('Not enough in stock');
 // 	}
 //   });
+
 
 module.exports = {
   db,
