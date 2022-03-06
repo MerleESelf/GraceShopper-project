@@ -4,73 +4,88 @@ const {
 	db,
 	models: { User, Poster, Order, CartDetail },
 } = require('../server/db');
-
+const names = require('./dummyData');
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
+const splitNames = names.split(',');
+const len = splitNames.length;
+
 async function seed() {
 	await db.sync({ force: true }); // clears db and matches models to tables
 	console.log('db synced!');
 
-	// Creating Users
-	const users = await Promise.all([
-		User.create({ username: 'cody', password: '123', isAdmin: true}),
-		User.create({ username: 'murphy', password: '123'}),
-		User.create({ username: 'amber', password: '123'}),
-	]);
+	const users = await Promise.all(
+		new Array(len).fill(1).map((a, i) =>
+			User.create({
+				username: `${splitNames[i]}`,
+				password: '123',
+				orderId: i + 1,
+			})
+		)
+	);
+	users.push(
+		await User.create({ username: 'cody', password: '123', isAdmin: true })
+	);
 
-	//Creating Posters
-	const posters = await Promise.all([
-		Poster.create({
-			name: 'groomingbymoonlight',
-			creator: 'carol merle',
-			description: "It's a cat, it's a moon, what more would you want",
-			price: 20.0,
-		}),
-		Poster.create({
-			name: 'groomingbysunlight',
-			creator: 'amber L',
-			description: "It's a cat, it's a sun, what more would you want",
-			price: 40.0,
-		}),
-		Poster.create({
-			name: 'sunlight',
-			creator: 'amber',
-			description: "It's a cat, it's a sun, what more would you want",
-			price: 40.0,
-		}),
-	]);
+	const posters = await Promise.all(
+		new Array(len).fill(1).map((a, i) =>
+			Poster.create({
+				name: `${splitNames[i]}`,
+				creator: `creator ${splitNames[i]}`,
+				description: "It's a cat, it's a sun, what more would you want",
+				price: i * 5,
+				imageUrl: `https://loremflickr.com/320/${240 + i}`,
+			})
+		)
+	);
 
 	// Creating Order
-	const orders = await Promise.all([
-		Order.create({ isComplete: true, userId: 1, moneyTotal: 20 }),
-		Order.create({ isComplete: false, userId: 2, moneyTotal: 20 }),
-		Order.create({ isComplete: false, userId: 3, moneyTotal: 20 }),
-	]);
+
+	const orders = await Promise.all(
+		new Array(len).fill(1).map((a, i) =>
+			Order.create({
+				isComplete: false,
+				userId: i + 1,
+				moneyTotal: i * 10,
+			})
+		)
+	);
 
 	// Creating CartDetail
-	const cartDetail = await Promise.all([
-		CartDetail.create({
-			price: 100,
-			quantity: 10,
-			orderId: 1,
-			posterId: 1,
-		}),
-		CartDetail.create({
-			price: 110,
-			quantity: 20,
-			orderId: 2,
-			posterId: 2,
-		}),
-		CartDetail.create({
-			price: 120,
-			quantity: 30,
-			orderId: 3,
-			posterId: 3,
-		}),
-	]);
+	// const cartDetail = await Promise.all([
+	// 	CartDetail.create({
+	// 		price: 100,
+	// 		quantity: 10,
+	// 		orderId: 1,
+	// 		posterId: 1,
+	// 	}),
+	// 	CartDetail.create({
+	// 		price: 110,
+	// 		quantity: 20,
+	// 		orderId: 2,
+	// 		posterId: 2,
+	// 	}),
+	// 	CartDetail.create({
+	// 		price: 120,
+	// 		quantity: 30,
+	// 		orderId: 3,
+	// 		posterId: 3,
+	// 	}),
+	// ]);
 
+	const cartDetail = await Promise.all(
+		new Array(len).fill(1).map((a, i) =>
+			CartDetail.create({
+				price: i + 10,
+				quantity: 100,
+				orderId: i + 1,
+				userId: i + 1,
+			})
+		)
+	);
 	// Creating Associations
 
 	console.log(`seeded ${users.length} users`);
