@@ -25,9 +25,9 @@ const orderComplete = (order) => ({
 /**
  * THUNK CREATORS
  */
-export const fetchCompleteOrder = (orderId) => {
+export const fetchCompleteOrder = (userId, orderId) => {
   return async (dispatch) => {
-    const { data } = await axios.get(`/api/order/${orderId}`);
+    const { data } = await axios.get(`/api/order/${userId}/${orderId}`);
     const order = data;
     dispatch(getCompleteOrder(order));
   };
@@ -42,11 +42,18 @@ export const fetchOpenOrder = (userId) => {
     };
   };
 
-export const checkOutThunk = (orderId) => {
+export const checkOutThunk = (userId, orderId, history) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/admin/posters/${id}`);
-      dispatch(orderComplete(data));
+      //order complete
+      console.log('in checkOutThunk')
+      const { data } = await axios.put(`/api/order/${userId}/${orderId}`);
+      // dispatch(orderComplete(data));
+      //subtract quantity
+
+
+      history.push('/thankyou')
+
     } catch (err) {
       console.log(err);
     }

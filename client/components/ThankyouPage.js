@@ -1,14 +1,11 @@
 import React from "react";
-//import { connect } from "react-redux";
+import { connect } from "react-redux";
 //import { getOrder } from "";
 import { Link } from "react-router-dom";
 
-export default class ThankyouPage extends React.Component {
+class ThankyouPage extends React.Component {
   constructor(){
       super()
-      this.state = {
-        isLoggedIn: false
-      }
   }
 
 //   componentDidMount() {
@@ -16,7 +13,7 @@ export default class ThankyouPage extends React.Component {
 //   }
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn
+    const username = this.props.state.username
       // const order = this.props.state.order
       // const isLoggedIn = this.props.state.isLoggedIn
     // return this.props.state === undefined || this.props.state.length === 0 ? (
@@ -24,19 +21,20 @@ export default class ThankyouPage extends React.Component {
     // ) : (
       return(
       <div id="thank">
-          <h1>Thank You!</h1>
+          <h1>Thank You</h1>
           <div>
             <h3>
-              A confirmation has been sent to your email or click <Link to="/orderconfirmation">here</Link> to view the order.
+              A confirmation has been sent to your email!
+              {/* or click <Link to="/orderconfirmation">here</Link> to view the order. */}
             </h3>
               <div>
-                  {isLoggedIn ? 
+                  {username ? 
                     ('')
                     :(
                         <h2>
                             Since you are here, join our list for discounts!
                             <form>
-                                <button value="submit">Yes! Sign Me Up</button>
+                                <Link to="/signup"><button value="submit">Yes! Sign Me Up</button></Link>
                             </form>
                         </h2>
                     )}
@@ -48,12 +46,12 @@ export default class ThankyouPage extends React.Component {
   }
 }
 
-// const mapState = (reduxState) => {
-//   console.log("reduxState", reduxState)
-//   return {
-//     state: reduxState.orders,
-//   };
-// };
+const mapState = (reduxState) => {
+  console.log("reduxState", reduxState.auth)
+  return {
+    state: reduxState.auth,
+  };
+};
 
 // const mapDispatch = (dispatch) => {
 //   return {
@@ -61,7 +59,7 @@ export default class ThankyouPage extends React.Component {
 //   };
 // };
 
-// export default connect(mapState, mapDispatch)(OrderConfirmation);
+export default connect(mapState)(ThankyouPage);
 
 //Add thunk 'getAllOrders' in the redux store
 

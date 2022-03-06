@@ -25,6 +25,7 @@ class Cart extends React.Component {
 
 		this.removeFromCart = this.removeFromCart.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	componentDidMount() {
@@ -42,7 +43,11 @@ class Cart extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.checkOut();
+		console.log('handle submit')
+		const userId = this.props.match.path.split('/')[2];
+		const orderId = this.props.order.openOrder.id
+		this.props.checkOut(userId, orderId);
+		// this.props.history.push(`/thankyou`)
 	}
 	render() {
 		console.log('this.props', this.props);
@@ -108,7 +113,7 @@ class Cart extends React.Component {
 						})}
 				</div>
 				<form>
-					<button value='submit' onSubmit={this.handleSubmit}>
+					<button value='submit' onClick={this.handleSubmit}>
 						Check Out
 					</button>
 				</form>
@@ -122,10 +127,10 @@ const mapStateToProps = (state) => ({
 	order: state.order,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, {history}) => ({
 	loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
 	removeAPoster: (posterId) => dispatch(removedPoster(posterId)),
-	checkOut: (orderId) => dispatch(checkOutThunk(orderId)),
+	checkOut: (userId, orderId) => dispatch(checkOutThunk(userId, orderId, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

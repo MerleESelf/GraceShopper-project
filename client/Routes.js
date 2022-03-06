@@ -45,7 +45,7 @@ class Routes extends Component {
           <Route exact path="/posters/:id" component={SinglePoster} />
 
           <Route exact path="/cart/1" component={CartItem} />
-          <Route path="/checkedOut" component={ThankyouPage} />
+          <Route path="/thankyou" component={ThankyouPage} />
           <Route path="/orderconfirmation" component={OrderConfirmation} />
           {/* <Redirect to="/home" /> */}
 
@@ -57,6 +57,7 @@ class Routes extends Component {
           <Route path="/" exact component={Login} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/thankyou" component={ThankyouPage} />
         </Switch>
       );
     }

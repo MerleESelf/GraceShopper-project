@@ -37,22 +37,24 @@ router.get("/:userId", async (req, res, next) => {
     }
   });
 
-//GET /api/order/:id/:userId
-router.get("/:id/:userId", async (req, res, next) => {
+//GET /api/order/:userId/:orderId
+router.get("/:userId/:orderId", async (req, res, next) => {
     try {
-      const order = await Order.findbyPK(req.params.id);
+      console.log("API get complete order", req.params)
+      const order = await Order.findByPk(req.params.orderId)
       res.send(order);
     } catch (error) {
       next(error);
     }
   });
 
-//PUT /api/order/:id/:userId
-router.put("/:id/:userId", async (req, res, next) => {
+//PUT /api/order/:userId/:orderId
+router.put("/:userId/:orderId", async (req, res, next) => {
     try {
+      console.log("API get complete order", req.params)
       const completeOrder = await Order.update(
         { isComplete: true },
-        { where: { id: req.params.id } }
+        { where: { id: req.params.orderId } }
       )
       res.send(completeOrder);
     } catch (error) {
