@@ -43,10 +43,12 @@ class Routes extends Component {
           <Route path="/home" component={Home} />
           <Route exact path="/posters" component={AllPosters} />
           <Route exact path="/posters/:id" component={SinglePoster} />
+
           <Route exact path="/cart" component={CartItem} />
           <Route path="/checkedOut" component={ThankyouPage} />
           <Route path="/orderconfirmation" component={OrderConfirmation} />
           <Redirect to="/home" />
+
         </Switch>
       );
     } else {
