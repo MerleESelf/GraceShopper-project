@@ -39,15 +39,15 @@ export class Users extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  return {
-    state: reduxState.users,
-  };
+	return {
+		state: reduxState.users,
+	};
 };
 
 const mapDispatch = (dispatch) => {
-  return {
-    loadUsers: (token) => dispatch(fetchUsers(token)),
-  };
+	return {
+		loadUsers: (token) => dispatch(fetchUsers(token)),
+	};
 };
 
 export default connect(mapState, mapDispatch)(Users);
