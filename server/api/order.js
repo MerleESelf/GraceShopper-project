@@ -26,8 +26,6 @@ router.get("/:userId", async (req, res, next) => {
           }, 
           include: Poster,
       })
-    //   const ordercarts = JSON.stringify(orderCarts)
-      console.log('posters', JSON.stringify(posters))
       res.send(posters);
     } catch (error) {
       next(error);
