@@ -39,9 +39,9 @@ export class Users extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  return {
-    state: reduxState.users,
-  };
+	return {
+		state: reduxState.users,
+	};
 };
 
 const mapDispatch = (dispatch) => {
