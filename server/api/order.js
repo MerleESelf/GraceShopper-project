@@ -6,27 +6,32 @@ const { models: { Poster,User,Order,CartDetail }} = require('../db')
 router.get("/:userId", async (req, res, next) => {
     try {
         console.log('in the router, userId', req.params.userId)
-      const order = await Order.findAll({
+      const openOrder = await Order.findAll({
           where: {
               userId: req.params.userId,
               isComplete: false
             }});
-      const currentOrderId = JSON.stringify(order[0].id)
-      const orderCarts = await Order.findByPk(currentOrderId, {
+      const currentOrderId = JSON.stringify(openOrder[0].id)
+      const  order = await Order.findByPk(currentOrderId, {
         include: [
           {
             model: CartDetail,
-            where: {orderId: currentOrderId}
+            where: {orderId: currentOrderId},
+            include: Poster,
           },
         ],
       })
-      const posters = await CartDetail.findAll({
+      const cartPosters = await CartDetail.findAll({
           where: {
               orderId: currentOrderId
           }, 
           include: Poster,
       })
-      res.send(posters);
+      res.send({
+        order,
+        cartPosters
+    })
+    //   res.send(posters);
     } catch (error) {
       next(error);
     }
