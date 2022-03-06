@@ -27,6 +27,34 @@ form div {
 	align-items: center;
 }
 
+
+/* admin view all posters */
+.adminPosters {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn {
+  font-family: sans-serif;
+  color: white;
+  font-size: 18px;
+  background-color: #0a7bed;
+  border-radius: 10px;
+  padding: 8px 20px;
+  font-weight: 100;
+  border: none;
+}
+
+/* .middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+} */
+
+
+
+
 .posters-container {
 	width: 100vw;
 }
@@ -35,4 +63,5 @@ form div {
   padding: 30px;
   margin: auto;
 }
+
 

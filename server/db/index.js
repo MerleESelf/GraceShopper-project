@@ -13,8 +13,11 @@ User.belongsToMany(Poster, { through: 'UserPoster' });
 Poster.belongsToMany(User, { through: 'UserPoster' });
 User.hasMany(Order);
 Order.belongsTo(User);
-Poster.belongsToMany(CartDetail, { through: 'PosterCartDetail' });
-CartDetail.belongsToMany(Poster, { through: 'PosterCartDetail' });
+
+Poster.belongsToMany(CartDetail, { through: "PosterCartDetail" });
+CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
+Poster.hasMany(CartDetail)
+
 Order.hasOne(CartDetail);
 CartDetail.belongsTo(User);
 
@@ -44,6 +47,7 @@ CartDetail.belongsTo(User);
 // 	  throw new Error('Not enough in stock');
 // 	}
 //   });
+
 
 module.exports = {
 	db,

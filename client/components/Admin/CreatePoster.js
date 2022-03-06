@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createPosterThunk } from "../../store/posters";
-import { Link } from "react-router-dom";
-// import { isAdmin } from "../../store";
 
 export class CreatePoster extends React.Component {
   constructor() {
@@ -21,9 +19,7 @@ export class CreatePoster extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = window.localStorage.token;
-    this.props.createPoster(
-      token, this.state
-    );
+    this.props.createPoster(token, this.state);
   }
 
   handleChange(event) {
@@ -33,8 +29,7 @@ export class CreatePoster extends React.Component {
   }
 
   render() {
-    console.log("this.props in CreatePoster", this.state);
-    const poster = this.state
+    const poster = this.state;
     return (
       <div>
         {this.state.error ? (
@@ -42,7 +37,7 @@ export class CreatePoster extends React.Component {
         ) : (
           ""
         )}
-        <form className="edit" onSubmit={this.handleSubmit}>
+        <form className="edit">
           <label htmlFor="name">Poster Name:</label>
           <input name="name" value={poster.name} onChange={this.handleChange} />
           <label htmlFor="creator">Created By: </label>
@@ -69,17 +64,16 @@ export class CreatePoster extends React.Component {
             value={poster.quantity}
             onChange={this.handleChange}
           />
-          <button id="saveChanges" type="submit">
+        </form>
+        <button id="saveChanges" type="submit" onSubmit={this.handleSubmit}>
             Save Changes
           </button>
-        </form>
       </div>
     );
   }
 }
 
 const mapState = (reduxState) => {
-  console.log("reduxState", reduxState);
   return {
     state: reduxState.allPosters,
   };

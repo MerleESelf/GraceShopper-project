@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removedPoster } from '../store/cart';
 import RemoveButton from './RemoveButton';
+import {checkOutThunk, fetchCompleteOrder, fetchOpenOrder} from '../store/order'
 
 const poster1 = {
 	id: 1,
@@ -14,12 +15,19 @@ const poster1 = {
 	imageUrl: 'https://loremflickr.com/320/240',
 };
 
+
 class Cart extends React.Component {
 	constructor() {
 		super();
 
 		this.removeFromCart = this.removeFromCart.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+	}
+
+	componentDidMount(){
+		const userId = this.props.match.path.split('/')[2]
+		console.log("this.props.match.path", userId)
+		this.props.loadOpenOrder(userId)
 	}
 
 	handleDelete(posterId) {
@@ -31,9 +39,12 @@ class Cart extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.updateCompleteStatus();
+		this.props.checkOut();
 	}
 	render() {
+		console.log("this.props",this.props)
+		// order = this.props.order
+		// cartDetail = this.props.order.cartDetail
 		return (
 			<div>
 				<h1>Shopping Cart</h1>
@@ -42,7 +53,7 @@ class Cart extends React.Component {
 					<div className='column-labels'>
 						<label className='product-details'>{poster1.name}</label>
 						<label className='product-price'>{poster1.price}</label>
-						<label className='product-quantity'>{poster1.quantity}</label>
+						{/* <label className='product-quantity'>{poster1.quantity}</label> */}
 						<label className='product-removal'>Remove</label>
 						<label className='product-line-price'>Total</label>
 					</div>
@@ -80,10 +91,13 @@ class Cart extends React.Component {
 
 const mapStateToProps = (state) => ({
 	postersInCart: state.cart.cart.posters,
+	order: state.order
 });
 
 const mapDispatchToProps = (dispatch) => ({
+	loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
 	removeAPoster: (posterId) => dispatch(removedPoster(posterId)),
+	checkOut: (orderId) => dispatch(checkOutThunk(orderId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

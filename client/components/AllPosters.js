@@ -22,11 +22,6 @@ class PosterCard extends React.Component {
             <p>${poster.price}</p>
           </div>
           <form className="addToCart" onSubmit={(ev) => ev.preventDefault()}>
-            <div>
-              <button type="button">
-                Add to Cart
-              </button>
-            </div>
           </form>
         </div>
       );
@@ -43,7 +38,9 @@ export class AllPosters extends React.Component {
     return this.props.state === undefined || this.props.state.length === 0 ? (
       "NO POSTERS"
     ) : (
-      <div className="posters-container">
+
+      <div id="allPosters" className="posters-container">
+
           {this.props.state.map((poster) => {
             return <PosterCard key={poster.id} poster={poster} />;
           })}
@@ -53,7 +50,6 @@ export class AllPosters extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  console.log("reduxState", reduxState)
   return {
     state: reduxState.allPosters,
   };
