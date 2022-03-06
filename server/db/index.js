@@ -19,7 +19,6 @@ CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
 Poster.hasMany(CartDetail)
 
 Order.hasOne(CartDetail);
-CartDetail.belongsTo(User);
 
 /** please don't delete this A.lin
 ============================================
@@ -47,7 +46,6 @@ CartDetail.belongsTo(User);
 // 	  throw new Error('Not enough in stock');
 // 	}
 //   });
-
 
 module.exports = {
 	db,
