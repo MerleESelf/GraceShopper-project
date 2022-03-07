@@ -38,47 +38,18 @@ class Cart extends React.Component {
 		const userId = this.props.match.path.split('/')[2];
 		const orderId = this.props.order.openOrder.id
 		this.props.checkOut(userId, orderId);
-		// this.props.history.push(`/thankyou`)
+		
 	}
 
 	render() {
 		console.log('this.props', this.props);
 		console.log('this.props.order', this.props.order);
-		// order = this.props.order
-		// cartDetail = this.props.order.cartDetail
+		
 		return (
 			<div>
 				<h1>Shopping Cart</h1>
 
 				<div className='shopping-cart'>
-					{/* <div className='column-labels'>
-						<label className='product-details'>{poster1.name}</label>
-						<label className='product-price'>{poster1.price}</label>
-						<label className='product-quantity'>{poster1.quantity}</label>
-						<label className='product-removal'>Remove</label>
-						<label className='product-line-price'>Total</label>
-					</div> */}
-					{/* {this.props.postersInCart.map((poster) => {
-						return (
-							<div className='product' key={poster.id}>
-								<div className='product-image'>
-									<img src='https://loremflickr.com/320/240' />
-								</div>
-								<div className='product-details'>
-									<div className='product-title'>{poster.name}</div>
-									<p className='product-description'>{poster.description}</p>
-								</div>
-								<div className='product-price'>{poster.price}</div>
-								<div className='product-removal'>
-									<button className='delete-btn' onClick={() => this.handleDelete(poster.id)}>
-										Remove
-									</button>
-									;
-								</div>
-								<div className='product-line-price'>25.98</div>
-							</div>
-						);
-					})} */}
 					{this.props.order?.cartPosters &&
 						this.props.order.cartPosters.map((orderDetail) => {
 							return (

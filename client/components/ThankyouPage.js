@@ -8,24 +8,15 @@ class ThankyouPage extends React.Component {
       super()
   }
 
-//   componentDidMount() {
-//     this.props.loadOrder();
-//   }
 
   render() {
     const username = this.props.state.username
-      // const order = this.props.state.order
-      // const isLoggedIn = this.props.state.isLoggedIn
-    // return this.props.state === undefined || this.props.state.length === 0 ? (
-    //   "NO ORDERS"
-    // ) : (
       return(
       <div id="thank">
           <h1>Thank You</h1>
           <div>
             <h3>
               A confirmation has been sent to your email!
-              {/* or click <Link to="/orderconfirmation">here</Link> to view the order. */}
             </h3>
               <div>
                   {username ? 
@@ -53,13 +44,9 @@ const mapState = (reduxState) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     loadOrder: () => dispatch(getAllOrders()),
-//   };
-// };
+
 
 export default connect(mapState)(ThankyouPage);
 
-//Add thunk 'getAllOrders' in the redux store
+
 

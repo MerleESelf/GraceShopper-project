@@ -5,7 +5,7 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div>
-    <h1>FS-App-Template</h1>
+    <h1>Poster Shop</h1>
     <nav>
       {isAdmin ? (
         <div>
