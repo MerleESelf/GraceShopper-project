@@ -35,14 +35,13 @@ class Cart extends React.Component {
 		const userId = this.props.match.path.split('/')[2];
 		const orderId = this.props.order.openOrder.id;
 		this.props.checkOut(userId, orderId);
-		// this.props.history.push(`/thankyou`)
+		
 	}
 
 	render() {
 		console.log('this.props', this.props);
 		console.log('this.props.order', this.props.order);
-		// order = this.props.order
-		// cartDetail = this.props.order.cartDetail
+		
 		return (
 			<div>
 				<h1>Shopping Cart</h1>

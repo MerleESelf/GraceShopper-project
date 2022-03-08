@@ -7,25 +7,14 @@ const Poster = require('./models/Poster');
 const Order = require('./models/Order');
 const CartDetail = require('./models/CartDetail');
 
-//associations could go here!
-
-// User.belongsToMany(Poster, { through: 'UserPoster' });
-// Poster.belongsToMany(User, { through: 'UserPoster' });
-// User.hasMany(Order);
-// Order.belongsTo(User);
-
-// Poster.belongsToMany(CartDetail, { through: "PosterCartDetail" });
-// CartDetail.belongsToMany(Poster, { through: "PosterCartDetail" });
-// Poster.hasMany(CartDetail)
-
-// Order.hasOne(CartDetail);
-
 User.hasMany(Order);
-Order.belongsTo(User);
+Order.belongsTo(User); 
 Order.hasMany(CartDetail);
-CartDetail.belongsTo(Order);
+CartDetail.belongsTo(Order)
+
 Poster.hasMany(CartDetail);
 CartDetail.belongsTo(Poster);
+
 
 module.exports = {
 	db,
