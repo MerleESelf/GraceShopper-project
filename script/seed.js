@@ -18,70 +18,8 @@ async function seed() {
 	await db.sync({ force: true }); // clears db and matches models to tables
 	console.log('db synced!');
 
-		// // Creating Users
-		// const users = await Promise.all([
-		// 	User.create({ username: 'cody', password: '123', isAdmin: true}),
-		// 	User.create({ username: 'murphy', password: '123'}),
-		// 	User.create({ username: 'amber', password: '123'}),
-		// ]);
-
-		// //Creating Posters
-		// const groomingbymoonlight = Poster.create({
-		// 	name: 'groomingbymoonlight',
-		// 	creator: 'carol merle',
-		// 	description: "It's a cat, it's a moon, what more would you want",
-		// 	price: 20,
-		// })
-
-		// const posters = await Promise.all([
-		// 	groomingbymoonlight,
-		// 	Poster.create({
-		// 		name: 'groomingbysunlight',
-		// 		creator: 'amber L',
-		// 		description: "It's a cat, it's a sun, what more would you want",
-		// 		price: 40,
-		// 	}),
-		// 	Poster.create({
-		// 		name: 'sunlight',
-		// 		creator: 'amber',
-		// 		description: "It's a cat, it's a sun, what more would you want",
-		// 		price: 40,
-		// 	}),
-		// ]);
-
-		// // Creating Order
-		// const orders = await Promise.all([
-		// 	Order.create({ isComplete: true, userId: 1, moneyTotal: 20 }),
-		// 	Order.create({ isComplete: false, userId: 1, moneyTotal: 20 }),
-		// 	Order.create({ isComplete: false, userId: 3, moneyTotal: 20 }),
-		// ]);
-
-		// // Creating CartDetail
-		// const cartA = CartDetail.create({
-		// 	price: 100,
-		// 	quantity: 10,
-		// 	orderId: 2,
-		// 	posterId: 1,
-		// })
-		// const cartB = CartDetail.create({
-		// 	price: 110,
-		// 	quantity: 20,
-		// 	orderId: 2,
-		// 	posterId: 2,
-		// })
-		// const cartDetail = await Promise.all([
-		// 	cartA,
-		// 	cartB,
-		// 	CartDetail.create({
-		// 		price: 120,
-		// 		quantity: 30,
-		// 		orderId: 3,
-		// 		posterId: 3,
-		// 	}),
-		// ]);
-
 	const users = await Promise.all(
-		new Array(10).fill(1).map((a, i) =>
+		new Array(4).fill(1).map((a, i) =>
 			User.create({
 				username: `${splitNames[i]}`,
 				password: '123',
@@ -94,7 +32,7 @@ async function seed() {
 	);
 
 	const posters = await Promise.all(
-		new Array(10).fill(1).map((a, i) =>
+		new Array(len).fill(1).map((a, i) =>
 			Poster.create({
 				name: `${splitNames[i]}`,
 				creator: `creator ${splitNames[i]}`,
@@ -108,54 +46,52 @@ async function seed() {
 	// Creating Order
 
 	const orders = await Promise.all(
-		new Array(10).fill(1).map((a, i) =>
+		new Array(4).fill(1).map((a, i) =>
 			Order.create({
 				isComplete: false,
 				userId: i + 1,
-				moneyTotal: i * 10,
 			})
 		)
 	);
 
-	// Creating CartDetail
-	// const cartDetail = await Promise.all([
-	// 	CartDetail.create({
-	// 		price: 100,
-	// 		quantity: 10,
-	// 		orderId: 1,
-	// 		posterId: 1,
-	// 	}),
-	// 	CartDetail.create({
-	// 		price: 110,
-	// 		quantity: 20,
-	// 		orderId: 2,
-	// 		posterId: 2,
-	// 	}),
-	// 	CartDetail.create({
-	// 		price: 120,
-	// 		quantity: 30,
-	// 		orderId: 3,
-	// 		posterId: 3,
-	// 	}),
-	// ]);
-
-	const cartDetail = await Promise.all(
+	const cartDetail1 = await Promise.all(
 		new Array(10).fill(1).map((a, i) =>
 			CartDetail.create({
-				price: i + 10,
 				quantity: 100,
 				orderId: 1,
 				posterId: i + 1,
 			}),
 		),
+	);
+
+	const cartDetail2 = await Promise.all(
 		new Array(10).fill(1).map((a, i) =>
 			CartDetail.create({
-				price: i + 10,
 				quantity: 100,
-				orderId: 1,
-				posterId: i + 1,
+				orderId: 2,
+				posterId: i + 20,
 			}),
-		)
+		),
+	);
+
+	const cartDetail3 = await Promise.all(
+		new Array(10).fill(1).map((a, i) =>
+			CartDetail.create({
+				quantity: 100,
+				orderId: 3,
+				posterId: i + 40,
+			}),
+		),
+	);
+
+	const cartDetail4 = await Promise.all(
+		new Array(10).fill(1).map((a, i) =>
+			CartDetail.create({
+				quantity: 100,
+				orderId: 4,
+				posterId: i + 60,
+			}),
+		),
 	);
 	// Creating Associations
 

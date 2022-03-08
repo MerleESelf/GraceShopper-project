@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-//import { getOrder } from "";
 import { Link } from "react-router-dom";
 
 class ThankyouPage extends React.Component {
@@ -43,7 +42,6 @@ const mapState = (reduxState) => {
     state: reduxState.auth,
   };
 };
-
 
 
 export default connect(mapState)(ThankyouPage);

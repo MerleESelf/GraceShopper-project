@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removedPoster } from '../store/cart';
-import RemoveButton from './RemoveButton';
 import {
 	checkOutThunk,
 	fetchCompleteOrder,
