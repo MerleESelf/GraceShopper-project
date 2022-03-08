@@ -109,7 +109,6 @@ async function seed() {
 			200: orders[0],
 		},
 		cartDetail1: {
-		
 		},
 	
 		// cartDetailPosters

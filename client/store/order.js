@@ -20,7 +20,7 @@ const orderComplete = (order) => ({
 	type: ORDER_COMPLETE,
 	order,
 });
-
+const editOrder = (poster) => ({type: EDIT_ORDER, poster})
 
 export const removedPoster = (order) => ({
 	type: REMOVED_POSTER,
@@ -38,13 +38,22 @@ export const removedPosterThunk = (userId, orderId, posterId) => async (dispatch
 		console.error(error);
 	}
 };
-
+export const updateCartAdd = (userId, posterId) => async (dispatch) => {
+	try {
+		const { data: cartDetailsPoster } = await axios.get(
+			`/api/order/${userId}/${posterId}`
+		);
+		dispatch(editOrder(cartDetailsPoster));
+	} catch (error) {
+		console.error(error);
+	}
+};
 // const changeStorage = (order) => ({
 //     type: ORDER_COMPLETE,
 //     order,
 //   });
 
-const editOrder = (order) => ({type: EDIT_ORDER, order})
+
 
 /**
  * THUNK CREATORS
@@ -58,12 +67,13 @@ export const fetchCompleteOrder = (userId, orderId) => {
 };
 
 export const fetchOpenOrder = (userId) => {
-	console.log('in the thunk');
+	console.log('in the thunk', userId);
 	return async (dispatch) => {
 		const { data } = await axios.get(`/api/order/${userId}`);
-		const order = data;
-		dispatch(getOpenOrder(order));
+		dispatch(getOpenOrder(data));
+		
 	};
+	
 };
 
 export const checkOutThunk = (userId, orderId, history) => {
@@ -103,10 +113,9 @@ export default function (state = {}, action) {
 		case ORDER_COMPLETE:
 			return action.order;
     	case EDIT_ORDER: 
-      		return action.order
+      		return action.poster
 		case REMOVED_POSTER: 
       		return action.order
-
 		default:
 			return state;
 	}

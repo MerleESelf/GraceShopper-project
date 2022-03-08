@@ -3,6 +3,7 @@ module.exports = router;
 
 // adding access to poster routes below
 router.use("/posters", require("./posters"));
+router.use("/posters", require("./order"));
 
 //router.use("/cart", require("./cart"));
 router.use("/order", require("./order"));
