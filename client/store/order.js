@@ -79,6 +79,7 @@ export const checkOutThunk = (userId, orderId, history) => {
 			console.log(err);
 		}
 	};
+}
 
 export const editOrderThunk = (orderId, posterId, poster) => {
   return async (dispatch) =>  {
