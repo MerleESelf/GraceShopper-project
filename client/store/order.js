@@ -6,6 +6,7 @@ import axios from "axios";
 const GET_COMPLETE_ORDER = "GET_COMPLETE_ORDER";
 const GET_OPEN_ORDER = "GET_OPEN_ORDER";
 const ORDER_COMPLETE = "ORDER_COMPLETE"
+const EDIT_ORDER = "EDIT_ORDER"; 
 /**
  * ACTION CREATORS
  */
@@ -18,10 +19,9 @@ const orderComplete = (order) => ({
   order,
 });
 
-// const changeStorage = (order) => ({
-//     type: ORDER_COMPLETE,
-//     order,
-//   });
+const editOrder = (order) => ({type: EDIT_ORDER, order})
+
+
 /**
  * THUNK CREATORS
  */
@@ -58,6 +58,13 @@ export const checkOutThunk = (userId, orderId, history) => {
       console.log(err);
     }
   };
+}; 
+
+export const editOrderThunk = (orderId, posterId, poster) => {
+  return async (dispatch) =>  {
+    const { data: updated } = await axios.put(`/api/order/${orderId}/${posterId}`, poster); 
+    dispatch(editOrder(updated)); 
+  };
 };
 
 /**
@@ -71,8 +78,10 @@ export default function (state = {}, action) {
     case GET_OPEN_ORDER:
       return action.order;
     case ORDER_COMPLETE:
-      return action.order
+      return action.order; 
+    case EDIT_ORDER: 
+    return action.order
     default:
       return state;
-  }
-}
+  };
+};

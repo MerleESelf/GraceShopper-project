@@ -16,6 +16,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
 router.get("/:id", async (req, res, next) => {
   try {
     const poster = await Poster.findByPk(req.params.id);
