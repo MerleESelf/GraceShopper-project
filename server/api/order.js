@@ -90,13 +90,31 @@ router.put("/:userId/:orderId", async (req, res, next) => {
   })
 
 //delete api/order/:orderId/:posterId
-router.delete('/:orderId/:posterId', async (req, res, next) => {
+router.delete('/:userId/:orderId/:posterId', async (req, res, next) => {
 	try {
 		const poster = await CartDetail.findOne({
 			where: { orderId: req.params.orderId, posterId: req.params.posterId },
 		});
-		await poster.destroy();
-		res.sendStatus(204);
+		poster.destroy();
+    console.log("in the delete poster api and poster",poster)
+    const order = await Order.findAll({
+      where: {
+          userId: req.params.userId,
+          isComplete: false
+        }});
+  const currentOrderId = JSON.stringify(order[0].id)
+  const  openOrder = await Order.findByPk(currentOrderId)
+  const cartPosters = await CartDetail.findAll({
+      where: {
+          orderId: currentOrderId
+      }, 
+      include: Poster,
+  })
+  res.send({
+    openOrder,
+    cartPosters
+})
+
 	} catch (error) {
 		next(error);
 	}
