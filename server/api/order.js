@@ -50,6 +50,7 @@ router.put("/:userId/:orderId", async (req, res, next) => {
     }
   });
 
+
   // PUT api/order/:orderId/:posterId 
   router.put("/:orderId/:posterId", async (req, res, next) => {
     try {
@@ -59,6 +60,19 @@ router.put("/:userId/:orderId", async (req, res, next) => {
       next(error); 
     }
   })
+
+//delete api/order/:orderId/:posterId
+router.delete('/:orderId/:posterId', async (req, res, next) => {
+	try {
+		const poster = await CartDetail.findOne({
+			where: { orderId: req.params.orderId, posterId: req.params.posterId },
+		});
+		await poster.destroy();
+		res.sendStatus(204);
+	} catch (error) {
+		next(error);
+	}
+});
 
 
 module.exports = router;
