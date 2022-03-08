@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { models: { Poster,User,Order,CartDetail }} = require('../db')
+const { models: { Poster, Order, CartDetail }} = require('../db')
 
 
 //GET /api/order/:userId
@@ -49,6 +49,16 @@ router.put("/:userId/:orderId", async (req, res, next) => {
       next(error);
     }
   });
+
+  // PUT api/order/:orderId/:posterId 
+  router.put("/:orderId/:posterId", async (req, res, next) => {
+    try {
+      const posterToEdit = await CartDetail.findOne({ where: { orderId: req.params.orderId, posterId: req.params.posterId } }); 
+       res.send(await posterToEdit.update(req.body))
+    } catch (error) {
+      next(error); 
+    }
+  })
 
 
 module.exports = router;
