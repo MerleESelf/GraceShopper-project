@@ -27,7 +27,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/posters" component={AllPosters} />
-            <Route exact path="/posters/:id" component={SinglePoster} />
+            <Route path="/posters/:id" component={SinglePoster} />
             <Route exact path="/cart" component={CartItem} />
             {/* <Redirect to="/home" /> */}
             <Route path="/checkedOut" component={ThankyouPage} />

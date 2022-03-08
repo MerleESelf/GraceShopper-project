@@ -1,45 +1,48 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSinglePoster, updateSinglePoster } from "../store/singlePoster";
+import { me } from "../store";
 
 class SinglePoster extends Component {
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
   }
-
   componentDidMount() {
     this.props.fetchSinglePoster(this.props.match.params.id);
   }
   update() {
+    const { isLoggedIn } = this.props;
+    console.log("yay1?", isLoggedIn);
     this.props.updateSinglePoster(this.props.match.params.id);
-    if (!localStorage.getItem("cart")) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([
-          {
-            posterId: this.props.match.params.id,
-            itemQuantity: 1,
-          },
-        ])
-      );
-    } else {
-      var existing = JSON.parse(localStorage.getItem("cart"));
-      var [updateQuant] = existing.filter(
-        (e) => e.posterId === this.props.match.params.id
-      );
-      //need to check if the posterId already exists, if it does just update quantit
-      if (updateQuant) {
-        updateQuant.itemQuantity++;
-        localStorage.setItem("cart", JSON.stringify(existing));
-      } else {
-        existing.push({
-          posterId: this.props.match.params.id,
-          itemQuantity: 1,
-        });
-        localStorage.setItem("cart", JSON.stringify(existing));
-      }
-    }
+
+    // if (!localStorage.getItem("cart")) {
+    //   localStorage.setItem(
+    //     "cart",
+    //     JSON.stringify([
+    //       {
+    //         posterId: this.props.match.params.id,
+    //         itemQuantity: 1,
+    //       },
+    //     ])
+    //   );
+    // } else {
+    //   var existing = JSON.parse(localStorage.getItem("cart"));
+    //   var [updateQuant] = existing.filter(
+    //     (e) => e.posterId === this.props.match.params.id
+    //   );
+    //   //need to check if the posterId already exists, if it does just update quantit
+    //   if (updateQuant) {
+    //     updateQuant.itemQuantity++;
+    //     localStorage.setItem("cart", JSON.stringify(existing));
+    //   } else {
+    //     existing.push({
+    //       posterId: this.props.match.params.id,
+    //       itemQuantity: 1,
+    //     });
+    //     localStorage.setItem("cart", JSON.stringify(existing));
+    //   }
+    // }
   }
 
   render() {
@@ -95,11 +98,13 @@ class SinglePoster extends Component {
 
 const mapStateToProps = (state) => ({
   poster: state.singlePoster,
+  isLoggedIn: state.auth.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSinglePoster: (id) => dispatch(fetchSinglePoster(id)),
   updateSinglePoster: (id) => dispatch(updateSinglePoster(id)),
+  loadInitialData: () => dispatch(me()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePoster);

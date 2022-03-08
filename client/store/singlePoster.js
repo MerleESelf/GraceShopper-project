@@ -12,6 +12,7 @@ const updatethisPoster = (poster) => ({
   type: UPDATE_POSTER,
   poster,
 });
+
 export const fetchSinglePoster = (id) => {
   return async (dispatch) => {
     try {
