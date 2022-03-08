@@ -4,6 +4,7 @@ import {
 	checkOutThunk,
 	fetchCompleteOrder,
 	fetchOpenOrder,
+	removedPosterThunk,
 } from '../store/order';
 
 class Cart extends React.Component {
@@ -13,8 +14,8 @@ class Cart extends React.Component {
 			subtotal: 0,
 		};
 		this.removeFromCart = this.removeFromCart.bind(this);
-		this.handleDelete = this.handleDelete.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this)
+
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentDidMount() {
@@ -23,18 +24,15 @@ class Cart extends React.Component {
 		this.props.loadOpenOrder(userId);
 	}
 
-	handleDelete(posterId) {
-		this.props.removeAPoster(posterId);
-	}
-	removeFromCart(product) {
-		this.props.removeItem(product);
+	removeFromCart(orderId, posterId) {
+		this.props.removedPosterThunk(orderId, posterId);
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log('handle submit')
+		console.log('handle submit');
 		const userId = this.props.match.path.split('/')[2];
-		const orderId = this.props.order.openOrder.id
+		const orderId = this.props.order.openOrder.id;
 		this.props.checkOut(userId, orderId);
 		
 	}
@@ -50,21 +48,31 @@ class Cart extends React.Component {
 				<div className='shopping-cart'>
 					{this.props.order?.cartPosters &&
 						this.props.order.cartPosters.map((orderDetail) => {
+							console.log('orderDetail.poster.id', orderDetail.poster.id);
 							return (
 								<div key={orderDetail.id}>
 									<div>
-										<img src={orderDetail.posters[0].imageUrl} />
+										<img src={orderDetail.poster.imageUrl} />
 									</div>
-									<div>Poster Name: {orderDetail.posters[0].name} </div>
-									<div>Poster Size: {orderDetail.posters[0].size} </div>
-									<div>Poster Creator: {orderDetail.posters[0].creator} </div>
+									<div>Poster Name: {orderDetail.poster.name} </div>
+									<div>Poster Size: {orderDetail.poster.size} </div>
+									<div>Poster Creator: {orderDetail.poster.creator} </div>
 									<div>
-										Poster Description: {orderDetail.posters[0].description}
+										Poster Description: {orderDetail.poster.description}
 									</div>
-									<div>Poster Price: ${orderDetail.posters[0].price} </div>
+									<div>Poster Price: ${orderDetail.poster.price} </div>
 
 									<div>
-										<button>Remove</button>
+										<button
+											onClick={() =>
+												this.removeFromCart(
+													orderDetail.orderId,
+													orderDetail.poster.id
+												)
+											}
+										>
+											Remove
+										</button>
 									</div>
 									<br />
 								</div>
@@ -86,9 +94,9 @@ class Cart extends React.Component {
 								this.props.order.cartPosters.map((orderDetail) => {
 									return (
 										<tr key={orderDetail.id}>
-											<td>{orderDetail.posters[0].name} </td>
-											<td>${orderDetail.posters[0].price}.00</td>
-											<td>{orderDetail.posters.length}</td>
+											<td>{orderDetail.poster.name} </td>
+											<td>${orderDetail.poster.price}.00</td>
+											<td>{orderDetail.poster.length}</td>
 										</tr>
 									);
 								})}
@@ -98,11 +106,11 @@ class Cart extends React.Component {
 						Subtotal:
 						{this.state.subtotal}
 					</div>
-          <form>
-					  <button value='submit' onClick={this.handleSubmit}>
-						  Check Out
-					  </button>
-          </form>
+					<form>
+						<button value='submit' onClick={this.handleSubmit}>
+							Check Out
+						</button>
+					</form>
 				</div>
 			</div>
 		);
@@ -110,14 +118,16 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	postersInCart: state.cart.cart.posters,
 	order: state.order,
 });
 
-const mapDispatchToProps = (dispatch, {history}) => ({
+const mapDispatchToProps = (dispatch, { history }) => ({
 	loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
-	removeAPoster: (posterId) => dispatch(removedPoster(posterId)),
-	checkOut: (userId, orderId) => dispatch(checkOutThunk(userId, orderId, history)),
+
+	removedPosterThunk: (orderId, posterId) =>
+		dispatch(removedPosterThunk(orderId, posterId)),
+	checkOut: (userId, orderId) =>
+		dispatch(checkOutThunk(userId, orderId, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

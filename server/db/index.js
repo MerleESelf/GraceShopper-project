@@ -16,7 +16,6 @@ Poster.hasMany(CartDetail);
 CartDetail.belongsTo(Poster);
 
 
-
 module.exports = {
 	db,
 	models: {
