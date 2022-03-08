@@ -3,7 +3,7 @@
 const router = require("express").Router();
 module.exports = router;
 const {
-  models: { Poster },
+  models: { Poster, Order, CartDetail },
 } = require("../db");
 module.exports = router;
 

@@ -27,6 +27,34 @@ router.get("/:userId", async (req, res, next) => {
     }
   });
 
+//GET /api/order/:userId/:posterId
+  router.get("/:userId/:posterId", async (req, res, next) => {
+    try {
+      const order = await Order.findAll({
+          where: {
+              userId: req.params.userId,
+              isComplete: false
+            }});
+      const currentOrderId = JSON.stringify(order[0].id)
+      const [cartDetailPoster, created] = await CartDetail.findOrCreate({
+          where: {
+              orderId: currentOrderId,
+              posterId: req.params.posterId
+          }, 
+          //include: Poster,
+      })
+        const oldNum = cartDetailPoster.quantity
+        await cartDetailPoster.update({ quantity: oldNum +1 })
+      await cartDetailPoster.save()
+      res.send({
+      cartDetailPoster, //cartdetail row, obj
+      order}// order row, arr
+    )
+    } catch (error) {
+      next(error);
+    }
+  });
+
 //GET /api/order/:userId/:orderId
 router.get("/:userId/:orderId", async (req, res, next) => {
     try {
