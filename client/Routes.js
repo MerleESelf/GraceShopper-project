@@ -10,10 +10,10 @@ import Home from "./components/Home";
 import AdminHome from "./components/Admin/Home";
 import { me } from "./store";
 import ThankyouPage from "./components/ThankyouPage";
-import CartItem from "./components/cart";
 import CreatePoster from "./components/Admin/CreatePoster";
 import Users from "./components/Admin/Users";
 import EditPosters from "./components/Admin/EditPosters";
+import CartItem from "./components/cart"
 
 /**
  * COMPONENT
