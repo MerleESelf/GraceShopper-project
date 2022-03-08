@@ -65,7 +65,7 @@ export class CreatePoster extends React.Component {
             onChange={this.handleChange}
           />
         </form>
-        <button id="saveChanges" type="submit" onSubmit={this.handleSubmit}>
+        <button id="saveChanges" type="submit" onClick={this.handleSubmit}>
             Save Changes
           </button>
       </div>

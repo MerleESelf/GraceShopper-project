@@ -22,18 +22,18 @@ const orderComplete = (order) => ({
 });
 
 
-export const removedPoster = (posterId) => ({
+export const removedPoster = (order) => ({
 	type: REMOVED_POSTER,
-	posterId,
+	order,
 });
 
 ///:orderId/:posterId
-export const removedPosterThunk = (orderId, posterId) => async (dispatch) => {
+export const removedPosterThunk = (userId, orderId, posterId) => async (dispatch) => {
 	try {
-		const { data: poster } = await axios.delete(
-			`/api/order/${orderId}/${posterId}`
+		const { data: order } = await axios.delete(
+			`/api/order/${userId}/${orderId}/${posterId}`
 		);
-		dispatch(removedPoster(poster));
+		dispatch(removedPoster(order));
 	} catch (error) {
 		console.error(error);
 	}
@@ -102,16 +102,11 @@ export default function (state = {}, action) {
 			return action.order;
 		case ORDER_COMPLETE:
 			return action.order;
-    case EDIT_ORDER: 
-      return action.order
-		case REMOVED_POSTER: {
-			return {
-				...state,
-				cartPosters: state.cartPosters.filter(
-					(poster) => poster.id === action.poster
-				),
-			};
-		}
+    	case EDIT_ORDER: 
+      		return action.order
+		case REMOVED_POSTER: 
+      		return action.order
+
 		default:
 			return state;
 	}
