@@ -29,9 +29,6 @@ export default class OrderConfirmation extends React.Component {
     console.log("here");
   }
 
-  //   componentDidMount() {
-  //     this.props.loadOrder();
-  //   }
 
   render() {
     console.log("this.state", this.state);

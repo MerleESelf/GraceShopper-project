@@ -8,8 +8,6 @@ const {
 module.exports = router;
 
 
-//check if it's admin 
-// route for all posters
 router.get("/", async (req, res, next) => {
   try {
     const allPosters = await Poster.findAll();
