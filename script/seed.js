@@ -108,9 +108,10 @@ async function seed() {
 		orders: {
 			200: orders[0],
 		},
-		cartDetail: {
-			3: cartDetail[0],
+		cartDetail1: {
+		
 		},
+	
 		// cartDetailPosters
 	};
 }

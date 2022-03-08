@@ -24,8 +24,8 @@ class Cart extends React.Component {
 		this.props.loadOpenOrder(userId);
 	}
 
-	removeFromCart(orderId, posterId) {
-		this.props.removedPosterThunk(orderId, posterId);
+	removeFromCart(userId, orderId, posterId) {
+		this.props.removedPosterThunk(userId, orderId, posterId);
 	}
 
 	handleSubmit(event) {
@@ -65,7 +65,7 @@ class Cart extends React.Component {
 									<div>
 										<button
 											onClick={() =>
-												this.removeFromCart(
+												this.removeFromCart(1,
 													orderDetail.orderId,
 													orderDetail.poster.id
 												)
@@ -124,8 +124,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, { history }) => ({
 	loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
 
-	removedPosterThunk: (orderId, posterId) =>
-		dispatch(removedPosterThunk(orderId, posterId)),
+	removedPosterThunk: (userId,orderId, posterId) =>
+		dispatch(removedPosterThunk(userId,orderId, posterId)),
 	checkOut: (userId, orderId) =>
 		dispatch(checkOutThunk(userId, orderId, history)),
 });
