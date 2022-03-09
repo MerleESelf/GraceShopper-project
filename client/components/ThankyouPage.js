@@ -37,7 +37,6 @@ class ThankyouPage extends React.Component {
 }
 
 const mapState = (reduxState) => {
-  console.log("reduxState", reduxState.auth)
   return {
     state: reduxState.auth,
   };

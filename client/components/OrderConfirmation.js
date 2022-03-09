@@ -26,12 +26,11 @@ export default class OrderConfirmation extends React.Component {
   constructor() {
     super();
     this.state = dummyData;
-    console.log("here");
+  
   }
 
 
   render() {
-    console.log("this.state", this.state);
     const order = this.state.order;
     const isLoggedIn = this.state.isLoggedIn;
     // const order = this.props.state.order

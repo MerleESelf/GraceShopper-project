@@ -37,7 +37,7 @@ async function seed() {
 				name: `${splitNames[i]}`,
 				creator: `creator ${splitNames[i]}`,
 				description: "It's a cat, it's a sun, what more would you want",
-				price: i * 5,
+				price: i * 40,
 				imageUrl: `https://loremflickr.com/320/${240 + i}`,
 			})
 		)
@@ -109,7 +109,7 @@ async function seed() {
 			200: orders[0],
 		},
 		cartDetail: {
-			3: cartDetail[0],
+			// 3: cartDetail[0],
 		},
 		// cartDetailPosters
 	};
