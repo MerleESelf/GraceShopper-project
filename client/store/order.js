@@ -6,7 +6,7 @@ import axios from 'axios';
 const GET_COMPLETE_ORDER = "GET_COMPLETE_ORDER";
 const GET_OPEN_ORDER = "GET_OPEN_ORDER";
 const ORDER_COMPLETE = "ORDER_COMPLETE"
-const EDIT_ORDER = "EDIT_ORDER"; 
+const EDIT_POSTER_QTY = "EDIT_POSTER_QTY"; 
 const REMOVED_POSTER = 'REMOVED_POSTER';
 
 /**
@@ -53,7 +53,7 @@ export const updateCartAdd = (userId, posterId) => async (dispatch) => {
 //     order,
 //   });
 
-
+const editPosterQty = (order) => ({type: EDIT_POSTER_QTY, order})
 
 /**
  * THUNK CREATORS
@@ -67,7 +67,6 @@ export const fetchCompleteOrder = (userId, orderId) => {
 };
 
 export const fetchOpenOrder = (userId) => {
-	console.log('in the thunk', userId);
 	return async (dispatch) => {
 		const { data } = await axios.get(`/api/order/${userId}`);
 		dispatch(getOpenOrder(data));
@@ -80,7 +79,6 @@ export const checkOutThunk = (userId, orderId, history) => {
 	return async (dispatch) => {
 		try {
 			//order complete
-			console.log('in checkOutThunk');
 			const { data } = await axios.put(`/api/order/${userId}/${orderId}`);
 			// dispatch(orderComplete(data));
 			//subtract quantity
@@ -91,10 +89,10 @@ export const checkOutThunk = (userId, orderId, history) => {
 	};
 }
 
-export const editOrderThunk = (orderId, posterId, poster) => {
+export const editPosterQtyThunk = (userId, orderId, posterId, poster) => {
   return async (dispatch) =>  {
-    const { data: updated } = await axios.put(`/api/order/${orderId}/${posterId}`, poster); 
-    dispatch(editOrder(updated)); 
+    const { data: order} = await axios.put(`/api/order/${userId}/${orderId}/${posterId}`, poster); 
+    dispatch(editPosterQty(order)); 
   };
 
 };
@@ -112,6 +110,8 @@ export default function (state = {}, action) {
 			return action.order;
 		case ORDER_COMPLETE:
 			return action.order;
+    case EDIT_POSTER_QTY: 
+      return action.order
     	case EDIT_ORDER: 
       		return action.poster
 		case REMOVED_POSTER: 

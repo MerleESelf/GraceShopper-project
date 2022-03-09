@@ -91,7 +91,6 @@ export default function (state = [], action) {
     case GET_ALL_POSTERS:
       return action.posters;
     case REMOVE_POSTER:
-      console.log(action.poster)
       return state.filter((poster) => poster.id !== action.poster.id)
     case SET_POSTER:
       return [...state, action.poster]
