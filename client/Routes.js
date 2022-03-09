@@ -47,7 +47,7 @@ class Routes extends Component {
           <Route exact path="/cart/1" component={CartItem} />
           <Route path="/thankyou" component={ThankyouPage} />
           <Route path="/orderconfirmation" component={OrderConfirmation} />
-          {/* <Redirect to="/home" /> */}
+          <Redirect to="/home" />
 
         </Switch>
       );
