@@ -122,6 +122,7 @@ class Cart extends React.Component {
       </div>
     );
   }
+
 }
 
 const mapStateToProps = (state) => ({
@@ -137,9 +138,11 @@ const mapDispatchToProps = (dispatch, { history }) => ({
   checkOut: (userId, orderId) =>
     dispatch(checkOutThunk(userId, orderId, history)),
 
-  editOrderThunk: (userId, orderId, posterId, poster) => {
-    dispatch(editPosterQtyThunk(userId, orderId, posterId, poster));
-  },
+
+	removedPosterThunk: (userId, orderId, posterId) =>
+		dispatch(removedPosterThunk(userId, orderId, posterId)),
+	checkOut: (userId, orderId) =>
+		dispatch(checkOutThunk(userId, orderId, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
