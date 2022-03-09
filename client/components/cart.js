@@ -21,18 +21,18 @@ class Cart extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.editPosterQty = this.editPosterQty.bind(this);
-    this.calcSubtotal = this.calcSubtotal.bind(this)
+    this.calcSubtotal = this.calcSubtotal.bind(this);
   }
 
   componentDidMount() {
     const userId = this.props.match.path.split("/")[2];
     this.props.loadOpenOrder(userId);
-    this.calcSubtotal() 
+    this.calcSubtotal();
   }
 
-  removeFromCart(orderId, posterId) {
-    this.props.removedPosterThunk(orderId, posterId);
-  }
+  removeFromCart(userId, orderId, posterId) {
+		this.props.removedPosterThunk(userId, orderId, posterId);
+	}
 
   handleSubmit(event) {
     event.preventDefault();
@@ -41,19 +41,19 @@ class Cart extends React.Component {
     this.props.checkOut(userId, orderId);
   }
 
-  editPosterQty (poster) {
+  editPosterQty(poster) {
     const userId = this.props.match.path.split("/")[2];
     const orderId = this.props.order.openOrder.id;
-    const posterId = poster.id
-    this.props.editOrderThunk(userId, orderId, posterId, poster)
+    const posterId = poster.id;
+    this.props.editPosterQtyThunk(userId, orderId, posterId, poster);
   }
-  calcSubtotal(){
-    let result = 0; 
+  calcSubtotal() {
+    let result = 0;
     this.props.order?.cartPosters &&
-    this.props.order.cartPosters.forEach((poster) => {
-      result += poster.poster.price
-    });
-    return result
+      this.props.order.cartPosters.forEach((poster) => {
+        result += poster.poster.price;
+      });
+    return result;
     // return this.setState({subtotal: result});
   }
 
@@ -68,14 +68,18 @@ class Cart extends React.Component {
             this.props.order.cartPosters.map((orderDetail) => {
               return (
                 <div key={orderDetail.id}>
-                  <CartPoster Poster={orderDetail} handleEdit={this.editPosterQty}/>
+                  <CartPoster
+                    Poster={orderDetail}
+                    handleEdit={this.editPosterQty}
+                  />
                   <div>
                     <button
                       onClick={() =>
                         this.removeFromCart(
-                          orderDetail.orderId,
-                          orderDetail.poster.id
-                        )
+													this.props.order.openOrder.userId,
+													orderDetail.orderId,
+													orderDetail.poster.id
+												)
                       }
                     >
                       Remove
@@ -109,10 +113,7 @@ class Cart extends React.Component {
                 })}
             </tbody>
           </table> */}
-          <div>
-            Subtotal:
-            ${this.calcSubtotal()}
-          </div>
+          <div>Subtotal: ${this.calcSubtotal()}</div>
           <form>
             <button value="submit" onClick={this.handleSubmit}>
               Check Out
@@ -122,7 +123,6 @@ class Cart extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapStateToProps = (state) => ({
@@ -132,17 +132,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, { history }) => ({
   loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
 
-  removedPosterThunk: (orderId, posterId) =>
-    dispatch(removedPosterThunk(orderId, posterId)),
+  editPosterQtyThunk: (userId, orderId, posterId, poster) => {
+    dispatch(editPosterQtyThunk(userId, orderId, posterId, poster));
+  },
+
+  removedPosterThunk: (userId, orderId, posterId) =>
+    dispatch(removedPosterThunk(userId, orderId, posterId)),
 
   checkOut: (userId, orderId) =>
     dispatch(checkOutThunk(userId, orderId, history)),
-
-
-	removedPosterThunk: (userId, orderId, posterId) =>
-		dispatch(removedPosterThunk(userId, orderId, posterId)),
-	checkOut: (userId, orderId) =>
-		dispatch(checkOutThunk(userId, orderId, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
