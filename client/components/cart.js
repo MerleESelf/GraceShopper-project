@@ -34,13 +34,12 @@ class Cart extends React.Component {
 		const userId = this.props.match.path.split('/')[2];
 		const orderId = this.props.order.openOrder.id;
 		this.props.checkOut(userId, orderId);
-		
 	}
 
 	render() {
 		console.log('this.props', this.props);
 		console.log('this.props.order', this.props.order);
-		
+
 		return (
 			<div>
 				<h1>Shopping Cart</h1>
@@ -48,7 +47,6 @@ class Cart extends React.Component {
 				<div className='shopping-cart'>
 					{this.props.order?.cartPosters &&
 						this.props.order.cartPosters.map((orderDetail) => {
-							console.log('orderDetail.poster.id', orderDetail.poster.id);
 							return (
 								<div key={orderDetail.id}>
 									<div>
@@ -65,7 +63,8 @@ class Cart extends React.Component {
 									<div>
 										<button
 											onClick={() =>
-												this.removeFromCart(1,
+												this.removeFromCart(
+													this.props.order.openOrder.userId,
 													orderDetail.orderId,
 													orderDetail.poster.id
 												)
@@ -124,8 +123,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, { history }) => ({
 	loadOpenOrder: (userId) => dispatch(fetchOpenOrder(userId)),
 
-	removedPosterThunk: (userId,orderId, posterId) =>
-		dispatch(removedPosterThunk(userId,orderId, posterId)),
+	removedPosterThunk: (userId, orderId, posterId) =>
+		dispatch(removedPosterThunk(userId, orderId, posterId)),
 	checkOut: (userId, orderId) =>
 		dispatch(checkOutThunk(userId, orderId, history)),
 });
